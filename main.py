@@ -3,6 +3,7 @@
 
 from cards import Cards
 from coins import Coins
+from person import Person
 
 # -------------------------------   Def Main  -------------------------------- #
 
@@ -18,21 +19,12 @@ def interface():
 
 
 def Main():
-
-    # Lista de cartas de los jugadores
-    J1cards = []
-    J2cards = []
-    J3cards = []
-    J4cards = []
-
-    # Jcards tiene las listas de los jugadores
-    Jcards = [J1cards, J2cards, J3cards, J4cards]
     
-    # Las monedas de cada jugador
-    J1coins = 0
-    J2coins = 0
-    J3coins = 0
-    J4coins = 0
+    # Configuramos a los jugadores
+    J1 = Person(1, [], 2)
+    J2 = Person(2, [], 2)
+    J3 = Person(3, [], 2)
+    J4 = Person(4, [], 2)
 
     # La baraja con las cartas
     # Existen 15 cartas de personaje, 3 de cada tipo: Duque, Asesino, Capitán, Embajador y Condesa
@@ -48,41 +40,53 @@ def Main():
 
     # Si escogiste 3 jugadores
     if opt == 3:
-        J4 = False
-        Jcards.pop(3)
 
-        JCa = Cards(deck, Jcards)
+        JCa = Cards(deck)
         JCa.Shuff_deck()
-        print(deck)
+        print(JCa.deck)
 
-        for i in range(len(Jcards)):
-            JCa = Cards(deck, Jcards[i])
-            JCa.Share_card()
-            JCa.Share_card()
+        J1.Get_cards(JCa.deck.pop(0))
+        J1.Get_cards(JCa.deck.pop(0))
+        J2.Get_cards(JCa.deck.pop(0))
+        J2.Get_cards(JCa.deck.pop(0))
+        J3.Get_cards(JCa.deck.pop(0))
+        J3.Get_cards(JCa.deck.pop(0))
 
-        print(deck)
-        print(J1cards)
-        print(J2cards)
-        print(J3cards)
+        print(JCa.deck)
+        print(J1.Jcards)
+        print(J2.Jcards)
+        print(J3.Jcards)
+
+        J1.See_cards()
+        J2.See_cards()
+        J3.See_cards()
 
     # Si escogiste 4 jugadores
     else:
-        J4 = True
-
-        JCa = Cards(deck, Jcards)
+        
+        JCa = Cards(deck)
         JCa.Shuff_deck()
-        print(deck)
-    
-        for i in range(len(Jcards)):
-            JCa = Cards(deck, Jcards[i])
-            JCa.Share_card()
-            JCa.Share_card()
+        print(JCa.deck)
 
-        print(deck)
-        print(J1cards)
-        print(J2cards)
-        print(J3cards)
-        print(J4cards)
+        J1.Get_cards(JCa.deck.pop(0))
+        J1.Get_cards(JCa.deck.pop(0))
+        J2.Get_cards(JCa.deck.pop(0))
+        J2.Get_cards(JCa.deck.pop(0))
+        J3.Get_cards(JCa.deck.pop(0))
+        J3.Get_cards(JCa.deck.pop(0))
+        J4.Get_cards(JCa.deck.pop(0))
+        J4.Get_cards(JCa.deck.pop(0))
+
+        print(JCa.deck)
+        print(J1.Jcards)
+        print(J2.Jcards)
+        print(J3.Jcards)
+        print(J4.Jcards)
+
+        J1.See_cards()
+        J2.See_cards()
+        J3.See_cards()
+        J4.See_cards()
 
 
     # ------------------------   Class Coins objects  ------------------------ #
@@ -113,8 +117,7 @@ def Main():
     #print(J4coins)
 
 
-    return ""
-
+    return
     # ------------------------------------------------------------------------ #
 
 if __name__ == "__main__":

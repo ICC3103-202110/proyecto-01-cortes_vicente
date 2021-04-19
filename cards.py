@@ -9,9 +9,8 @@ class Cards():
     # -------------------------------  Builder  ------------------------------ #
 
     # Entrada:
-    def __init__(self, deck, Jcards):
+    def __init__(self, deck):
         self.__deck = deck   # deck (list)
-        self.__Jcards = Jcards   # Jcards (list)
 
     # ---------------------------  Private methods  -------------------------- #  
     @property
@@ -21,31 +20,17 @@ class Cards():
     @deck.setter
     def deck(self, deck):
         self.__deck = deck
-    
-    @property
-    def Jcards(self):
-        return self.__Jcards
-
-    @Jcards.setter
-    def Jcards(self, Jcards):
-        self.__Jcards = Jcards
 
     # ---------------------------  Public methods  --------------------------- #
 
     # Revolver la baraja
     def Shuff_deck(self):
-        rd.shuffle(self.deck)
-        return ""
+        rd.shuffle(self.__deck)
+        return
 
     # Da la carta de la baraja a un jugador
-    def Share_card(self):
-        self.Jcards.append(self.deck[0])
-        self.deck.pop(0)
-        return ""
-
-    # Muestra las cartas de los jugadores
-    def Show_hand(self):
-        print(self.Jcards)
-        return ""
+    def Take_card(self):
+        cardChosen = self.__deck.pop(0)
+        return cardChosen
 
 # ---------------------------------------------------------------------------- #
