@@ -1,8 +1,11 @@
+# Definimos la clase Coins para almacenar las monedas
 class Coins():
 
     # -------------------------------  Builder  ------------------------------ #
+
+    # Entrada:
     def __init__(self, Jcoins):
-        self.__Jcoins = int(Jcoins)
+        self.__Jcoins = Jcoins   
 
     # ---------------------------  Private methods  -------------------------- #    
     @property
@@ -14,15 +17,20 @@ class Coins():
         self.__Jcoins = Jcoins
 
     # ---------------------------  Public methods  --------------------------- #  
+
+    # Sumar una moneda
     def Award_coin(self):
-        self.Jcoins = self.Jcoins+1
+        self.Jcoins.append("o")
         return ""
 
+    # Quitar una moneda
     def Remove_coin(self):
-        self.Jcoins -=1
+        self.Jcoins.pop()
         return ""
 
-Jcoins = 0
-Jco = Coins(Jcoins)
-Jco.Award_coin()
-print(Jcoins)
+# Prueba
+
+# Jcoins = 0
+# Jco = Coins(Jcoins)
+# Jco.Award_coin()
+# print(Jcoins)
