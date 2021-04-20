@@ -1,8 +1,4 @@
-<<<<<<< HEAD
  # Definimos la clase Persona para almacenar las cartas de los jugadores
-=======
-# Definimos la clase Persona para almacenar las cartas de los jugadores
->>>>>>> 4ba9a316970e7f6a352bc24e31a251b0b2edcd59
 
 class Person():
 
@@ -12,11 +8,7 @@ class Person():
     def __init__(self, id, Jcards, Jcoins):
         self.__id = id   # id (int)
         self.__Jcards = Jcards   # Jcards (list)
-<<<<<<< HEAD
         self.__Jcoins = Jcoins # Jcoins (int)
-=======
-        self.__coins = Jcoins # Jcoins (int)
->>>>>>> 4ba9a316970e7f6a352bc24e31a251b0b2edcd59
 
     # ---------------------------  Private methods  -------------------------- #    
 
@@ -76,7 +68,6 @@ class Person():
                 print(" - Contrataque: Puedes bloquear \'Asesinato\'.")
             print("\n")
             i += 1
-<<<<<<< HEAD
 
     #def Take_an_option(self):
     #    a = input(self.id+" elije que accion quieres declar: "))
@@ -84,9 +75,6 @@ class Person():
     
     def Show_coins(self):
         print(" Monedas de Jugador " + str(self.__id) + ": " + str(self.__Jcoins))
-=======
-        
->>>>>>> 4ba9a316970e7f6a352bc24e31a251b0b2edcd59
         return
 
 

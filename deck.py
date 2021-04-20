@@ -2,7 +2,7 @@
 
 import random as rd
 
-# Definimos la clase Cartas para almacenar las cartas de los jugadores
+# Definimos la clase Deck para almacenar las cartas de los jugadores
 
 class Deck():
 
