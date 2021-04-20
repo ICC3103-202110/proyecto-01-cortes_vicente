@@ -1,9 +1,16 @@
 
 # Exportación de archivos '.py'
 
+<<<<<<< HEAD
 from deck import Deck
 from coins import Coins
 from person import Person
+=======
+from cards import Cards
+from coins import Coins
+from person import Person
+
+>>>>>>> 4ba9a316970e7f6a352bc24e31a251b0b2edcd59
 # -------------------------------   Def Main  -------------------------------- #
 
 
@@ -40,6 +47,7 @@ def Main():
     # Si escogiste 3 jugadores
     if opt == 3:
 
+<<<<<<< HEAD
         # Crea JCa como clase Cards
         JCa = Deck(deck)
 
@@ -48,6 +56,12 @@ def Main():
         print(JCa.deck)
 
         # Los jugadores quitan las cartas de la baraja
+=======
+        JCa = Cards(deck)
+        JCa.Shuff_deck()
+        print(JCa.deck)
+
+>>>>>>> 4ba9a316970e7f6a352bc24e31a251b0b2edcd59
         J1.Get_cards(JCa.deck.pop(0))
         J1.Get_cards(JCa.deck.pop(0))
         J2.Get_cards(JCa.deck.pop(0))
@@ -64,6 +78,7 @@ def Main():
         J2.See_cards()
         J3.See_cards()
 
+<<<<<<< HEAD
         J1.Show_coins()
         J2.Show_coins()
         J3.Show_coins()
@@ -72,6 +87,12 @@ def Main():
     else:
         
         JCa = Deck(deck)
+=======
+    # Si escogiste 4 jugadores
+    else:
+        
+        JCa = Cards(deck)
+>>>>>>> 4ba9a316970e7f6a352bc24e31a251b0b2edcd59
         JCa.Shuff_deck()
         print(JCa.deck)
 
@@ -95,11 +116,14 @@ def Main():
         J3.See_cards()
         J4.See_cards()
 
+<<<<<<< HEAD
         J1.Show_coins()
         J2.Show_coins()
         J3.Show_coins()
         J4.Show_coins()
 
+=======
+>>>>>>> 4ba9a316970e7f6a352bc24e31a251b0b2edcd59
 
     # ------------------------   Class Coins objects  ------------------------ #
 
