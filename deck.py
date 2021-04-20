@@ -2,7 +2,7 @@
 
 import random as rd
 
-# Definimos la clase Deck para almacenar las cartas de los jugadores
+# Definimos la clase Deck para barajar el mazo
 
 class Deck():
 
@@ -29,4 +29,4 @@ class Deck():
         return
 
 
-# ---------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------

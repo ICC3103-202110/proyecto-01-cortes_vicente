@@ -1,26 +1,18 @@
-
 # Exportación de archivos '.py'
 
 from deck import Deck
+from cards import Cards
 from coins import Coins
-from person import Person
+from player import Player
 # -------------------------------   Def Main  -------------------------------- #
-
-
-
-def interface():
-    print("Selecciona una opcion:")
-    print("1.- ")
-    print("2.- ")
-    print("3.- ")
-    print("4.- ")
-    print("5.- Exit")
-    return int(input())
 
 
 
 # Esta función comienza el juego con 3 jugadores
 def Multiplayer3P(J1, J2, J3, JCa):
+
+    # Declaramos la variable turno
+    turn = 1
 
     # Revuelve las cartas
     JCa.Shuff_deck()
@@ -39,13 +31,23 @@ def Multiplayer3P(J1, J2, J3, JCa):
     print(J2.Jcards)
     print(J3.Jcards)
 
-    J1.See_cards()
-    J2.See_cards()
-    J3.See_cards()
-
     J1.Show_coins()
     J2.Show_coins()
     J3.Show_coins()
+
+    while(turn < 4):
+
+        print("\nListo Jugador " + str(turn) + "\n")
+
+        if(turn == J1.id):
+            opt = J1.Take_an_action()
+        elif(turn == J2.id):
+            opt = J2.Take_an_action()
+        else:
+            opt = J3.Take_an_action()
+        
+        turn += 1
+
 
     return
 
@@ -55,7 +57,7 @@ def Multiplayer3P(J1, J2, J3, JCa):
 def Multiplayer4P(J1, J2, J3, JCa):
 
     # Configuramos el jugador 4
-    J4 = Person(4, [], 2)
+    J4 = Player(4, [], 2)
 
     # Revuelve las cartas
     JCa.Shuff_deck()
@@ -101,9 +103,9 @@ def SetUp():
     # id: Identificador de jugador (Ex: id = 1, entonces es Jugador 1) lo usamos para los turnos
     # Jcards: Cartas del jugador, al principio vacio, pero se agregan más adelante
     # Jcoins: Monedas del jugador, se empieza con 2 monedas
-    J1 = Person(1, [], 2)
-    J2 = Person(2, [], 2)
-    J3 = Person(3, [], 2)
+    J1 = Player(1, [], 2)
+    J2 = Player(2, [], 2)
+    J3 = Player(3, [], 2)
 
     # La baraja con las cartas
     # Existen 15 cartas de personaje, 3 de cada tipo: Duque, Asesino, Capitán, Embajador y Condesa

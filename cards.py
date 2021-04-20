@@ -1,36 +1,28 @@
-# Importa librería random
+# Importa la clase deck
 
-import random as rd
+from deck import Deck
 
 # Definimos la clase Cartas para almacenar las cartas de los jugadores
 
-class Cards():
+class Cards(Deck):
 
     # -------------------------------  Builder  ------------------------------ #
 
     # Entrada:
-    def __init__(self, deck):
-        self.__deck = deck   # deck (list)
+    def __init__(self, Jcards):
+        self.__Jcards = Jcards   # Jcards (list)
 
     # ---------------------------  Private methods  -------------------------- #  
     @property
-    def deck(self):
-        return self.__deck
+    def Jcards(self):
+        return self.__Jcards
 
-    @deck.setter
-    def deck(self, deck):
-        self.__deck = deck
-
+    @Jcards.setter
+    def Jcards(self, Jcards):
+        self.__Jcards = Jcards
     # ---------------------------  Public methods  --------------------------- #
 
-    # Revolver la baraja
-    def Shuff_deck(self):
-        rd.shuffle(self.__deck)
-        return
-
     # Da la carta de la baraja a un jugador
-    def Take_card(self):
-        cardChosen = self.__deck.pop(0)
-        return cardChosen
+    
 
 # ---------------------------------------------------------------------------- #

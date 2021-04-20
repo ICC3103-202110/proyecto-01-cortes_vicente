@@ -1,11 +1,17 @@
+# Importa la clase cards
+from cards import Cards
+
 # Definimos la clase Coins para almacenar las monedas
-class Coins():
+# Heredamos Cards unicamente para usarlo luego en la clase Person, ya que 
+# heredaremos Coins en Person y asi nos ahorraremos codigo usando POO
+class Coins(Cards):
 
     # -------------------------------  Builder  ------------------------------ #
 
     # Entrada:
     def __init__(self, Jcoins):
-        self.__Jcoins = Jcoins   
+        super().__init__(deck, Jcards = [])
+        self.__Jcoins = Jcoins #Jcoins (int)
 
     # ---------------------------  Private methods  -------------------------- #    
     @property
