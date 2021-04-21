@@ -1,21 +1,21 @@
 
-# Definimos la clase Cartas para almacenar las cartas de los jugadores
+# --------------- Creación de clase Cards
 
 class Cards():
 
-    # -------------------------------  Builder  ------------------------------ #
-    
-    # Entrada:
+# -------------------- Atributos --------------------
+
     def __init__(self, character):
         self.character = character   # character (str)
 
-    # ---------------------------  Private methods  -------------------------- #  
+
+# -------------------- Autoreferencial --------------------
 
     def character(self):
         return self.character
 
 
-    # ---------------------------  Public methods  --------------------------- #
+# -------------------- Funciones --------------------
 
     def action(self):
         if self.character == "A":
@@ -23,7 +23,7 @@ class Cards():
         return
     
 
-# ---------------------------------------------------------------------------- #
+# --------------- PRUEBA
 
 #carta = Cards("A")
 #carta.action()
