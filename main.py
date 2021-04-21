@@ -1,160 +1,158 @@
-
 # Exportación de archivos '.py'
 
-<<<<<<< HEAD
 from deck import Deck
-from coins import Coins
-from person import Person
-=======
 from cards import Cards
 from coins import Coins
-from person import Person
-
->>>>>>> 4ba9a316970e7f6a352bc24e31a251b0b2edcd59
+from player import Player
 # -------------------------------   Def Main  -------------------------------- #
 
 
-def interface():
-    print("Selecciona una opcion:")
-    print("1.- ")
-    print("2.- ")
-    print("3.- ")
-    print("4.- ")
-    print("5.- Exit")
-    return int(input())
+
+# Esta función comienza el juego con 3 jugadores
+def Multiplayer3P(J1, J2, J3, JCa):
+
+    # Declaramos la variable turno
+    turn = 1
+
+    # Revuelve las cartas
+    JCa.Shuff_deck()
+    print(JCa.deck)
+
+    # Los jugadores quitan las cartas de la baraja
+    J1.get_cards(JCa.deck.pop(0))
+    J1.get_cards(JCa.deck.pop(0))
+    J2.get_cards(JCa.deck.pop(0))
+    J2.get_cards(JCa.deck.pop(0))
+    J3.get_cards(JCa.deck.pop(0))
+    J3.get_cards(JCa.deck.pop(0))
+
+    print(JCa.deck)
+    print(J1.Jcards)
+    print(J2.Jcards)
+    print(J3.Jcards)
+
+    J1.Show_coins()
+    J2.Show_coins()
+    J3.Show_coins()
+
+    while(turn < 4):
+
+        print("\nListo Jugador " + str(turn) + "\n")
+
+        if(turn == J1.id):
+            opt = J1.Take_an_action()
+            if opt == 1:
+                J1.Get_coin()
+                print("J1 obtiene una moneda")
+            if opt == 2:
+                J1.Get_coin()
+                J1.Get_coin()
+                print("J1 obtiene dos monedas")
+            if opt == 3:
+                for i in range(7):
+                    J1.Lose_coin()
+                
+            if opt == 4:
+                J1.Challenge3P()
+                
+        elif(turn == J2.id):
+            opt = J2.Take_an_action()
+        else:
+            opt = J3.Take_an_action()
+        
+
+        
+        turn += 1
 
 
-def Main():
-    
-    # Configuramos a los jugadores
-    J1 = Person(1, [], 2)
-    J2 = Person(2, [], 2)
-    J3 = Person(3, [], 2)
-    J4 = Person(4, [], 2)
+    return
+
+
+
+# Esta función comienza el juego con 4 jugadores
+def Multiplayer4P(J1, J2, J3, JCa):
+
+    # Configuramos el jugador 4
+    J4 = Player(4, [], 2)
+
+    # Revuelve las cartas
+    JCa.Shuff_deck()
+    print(JCa.deck)
+
+    # Los jugadores quitan las cartas de la baraja
+    J1.get_cards(JCa.deck.pop(0))
+    J1.get_cards(JCa.deck.pop(0))
+    J2.get_cards(JCa.deck.pop(0))
+    J2.get_cards(JCa.deck.pop(0))
+    J3.get_cards(JCa.deck.pop(0))
+    J3.get_cards(JCa.deck.pop(0))
+    J4.get_cards(JCa.deck.pop(0))
+    J4.get_cards(JCa.deck.pop(0))
+
+    print(JCa.deck)
+    print(J1.Jcards)
+    print(J2.Jcards)
+    print(J3.Jcards)
+    print(J4.Jcards)
+
+    J1.See_cards()
+    J2.See_cards()
+    J3.See_cards()
+    J4.See_cards()
+
+    J1.Show_coins()
+    J2.Show_coins()
+    J3.Show_coins()
+    J4.Show_coins()
+
+    return
+
+
+
+# Esta función es donde comienza el código main
+def SetUp():
+
+    #Presentación del título
+    print("\n   ---- COUP ----   \n")
+
+    # Crea J1, J2 y J3 como clase Person
+    # id: Identificador de jugador (Ex: id = 1, entonces es Jugador 1) lo usamos para los turnos
+    # Jcards: Cartas del jugador, al principio vacio, pero se agregan más adelante
+    # Jcoins: Monedas del jugador, se empieza con 2 monedas
+    J1 = Player(1, [], 2)
+    J2 = Player(2, [], 2)
+    J3 = Player(3, [], 2)
 
     # La baraja con las cartas
     # Existen 15 cartas de personaje, 3 de cada tipo: Duque, Asesino, Capitán, Embajador y Condesa
     deck = ["D", "D", "D", "A", "A", "A", "Ca", "Ca", "Ca", "E", "E", "E", "Co", "Co", "Co"]
 
-    # Pide al usuario con cuantos jugadores quiere en el juego
-    opt = int(input("Ingrese la cantidad de jugadores (3 o 4): "))
+    # Crea JCa como clase Deck
+    # deck: La baraja guardada
+    JCa = Deck(deck)
+
+    # Pide al usuario con cuantos jugadores quiere jugar
+    opt = int(input("Seleccione la cantidad de Jugadores para jugar (3 o 4): "))
 
     # Pide de nuevo si el dato introducido es erroneo
     while opt < 3 or opt > 4:
-        print("Solo se puede de 3 a 4 jugadores, escoge de nuevo")
-        opt = int(input("Ingrese la cantidad de jugadores (3 o 4): "))
+        print("Solo se puede jugar de 3 a 4 Jugadores, Intente de nuevo")
+        opt = int(input("Seleccione la cantidad de Jugadores para jugar (3 o 4): "))
 
     # Si escogiste 3 jugadores
     if opt == 3:
 
-<<<<<<< HEAD
-        # Crea JCa como clase Cards
-        JCa = Deck(deck)
-
-        # Revuelve las cartas
-        JCa.Shuff_deck()
-        print(JCa.deck)
-
-        # Los jugadores quitan las cartas de la baraja
-=======
-        JCa = Cards(deck)
-        JCa.Shuff_deck()
-        print(JCa.deck)
-
->>>>>>> 4ba9a316970e7f6a352bc24e31a251b0b2edcd59
-        J1.Get_cards(JCa.deck.pop(0))
-        J1.Get_cards(JCa.deck.pop(0))
-        J2.Get_cards(JCa.deck.pop(0))
-        J2.Get_cards(JCa.deck.pop(0))
-        J3.Get_cards(JCa.deck.pop(0))
-        J3.Get_cards(JCa.deck.pop(0))
-
-        print(JCa.deck)
-        print(J1.Jcards)
-        print(J2.Jcards)
-        print(J3.Jcards)
-
-        J1.See_cards()
-        J2.See_cards()
-        J3.See_cards()
-
-<<<<<<< HEAD
-        J1.Show_coins()
-        J2.Show_coins()
-        J3.Show_coins()
+        # Vamos al modo de 3 jugadores
+        Multiplayer3P(J1, J2, J3, JCa)        
 
     # Si escogiste 4 jugadores
     else:
-        
-        JCa = Deck(deck)
-=======
-    # Si escogiste 4 jugadores
-    else:
-        
-        JCa = Cards(deck)
->>>>>>> 4ba9a316970e7f6a352bc24e31a251b0b2edcd59
-        JCa.Shuff_deck()
-        print(JCa.deck)
 
-        J1.Get_cards(JCa.deck.pop(0))
-        J1.Get_cards(JCa.deck.pop(0))
-        J2.Get_cards(JCa.deck.pop(0))
-        J2.Get_cards(JCa.deck.pop(0))
-        J3.Get_cards(JCa.deck.pop(0))
-        J3.Get_cards(JCa.deck.pop(0))
-        J4.Get_cards(JCa.deck.pop(0))
-        J4.Get_cards(JCa.deck.pop(0))
-
-        print(JCa.deck)
-        print(J1.Jcards)
-        print(J2.Jcards)
-        print(J3.Jcards)
-        print(J4.Jcards)
-
-        J1.See_cards()
-        J2.See_cards()
-        J3.See_cards()
-        J4.See_cards()
-
-<<<<<<< HEAD
-        J1.Show_coins()
-        J2.Show_coins()
-        J3.Show_coins()
-        J4.Show_coins()
-
-=======
->>>>>>> 4ba9a316970e7f6a352bc24e31a251b0b2edcd59
-
-    # ------------------------   Class Coins objects  ------------------------ #
-
-   # J1Co = Coins(J1coins)
-   # J2Co = Coins(J2coins)
-   # J3Co = Coins(J3coins)
-   # J4Co = Coins(J4coins)
-    # ------------------------------------------------------------------------ #
-
-   # J1Ca.Show_hand()
-   # J2Ca.Show_hand()
-   # J3Ca.Show_hand()
-   # J4Ca.Show_hand()
-
-   # J1Co.Award_coin()
-   # J1Co.Award_coin()
-   # J2Co.Award_coin()
-   # J2Co.Award_coin()
-   # J3Co.Award_coin()
-   # J3Co.Award_coin()
-   # J4Co.Award_coin()
-   # J4Co.Award_coin()
-
-    #print(J1coins)
-    #print(J2coins)
-    #print(J3coins)
-    #print(J4coins)
-
+        # Vamos al modo de 4 jugadores
+        Multiplayer4P(J1, J2, J3, JCa)
 
     return
     # ------------------------------------------------------------------------ #
 
 if __name__ == "__main__":
-    Main()
+    SetUp() 
