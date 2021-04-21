@@ -19,12 +19,12 @@ def Multiplayer3P(J1, J2, J3, JCa):
     print(JCa.deck)
 
     # Los jugadores quitan las cartas de la baraja
-    J1.Get_cards(JCa.deck.pop(0))
-    J1.Get_cards(JCa.deck.pop(0))
-    J2.Get_cards(JCa.deck.pop(0))
-    J2.Get_cards(JCa.deck.pop(0))
-    J3.Get_cards(JCa.deck.pop(0))
-    J3.Get_cards(JCa.deck.pop(0))
+    J1.get_cards(JCa.deck.pop(0))
+    J1.get_cards(JCa.deck.pop(0))
+    J2.get_cards(JCa.deck.pop(0))
+    J2.get_cards(JCa.deck.pop(0))
+    J3.get_cards(JCa.deck.pop(0))
+    J3.get_cards(JCa.deck.pop(0))
 
     print(JCa.deck)
     print(J1.Jcards)
@@ -41,10 +41,26 @@ def Multiplayer3P(J1, J2, J3, JCa):
 
         if(turn == J1.id):
             opt = J1.Take_an_action()
+            if opt == 1:
+                J1.Get_coin()
+                print("J1 obtiene una moneda")
+            if opt == 2:
+                J1.Get_coin()
+                J1.Get_coin()
+                print("J1 obtiene dos monedas")
+            if opt == 3:
+                for i in range(7):
+                    J1.Lose_coin()
+                
+            if opt == 4:
+                J1.Challenge3P()
+                
         elif(turn == J2.id):
             opt = J2.Take_an_action()
         else:
             opt = J3.Take_an_action()
+        
+
         
         turn += 1
 
@@ -64,14 +80,14 @@ def Multiplayer4P(J1, J2, J3, JCa):
     print(JCa.deck)
 
     # Los jugadores quitan las cartas de la baraja
-    J1.Get_cards(JCa.deck.pop(0))
-    J1.Get_cards(JCa.deck.pop(0))
-    J2.Get_cards(JCa.deck.pop(0))
-    J2.Get_cards(JCa.deck.pop(0))
-    J3.Get_cards(JCa.deck.pop(0))
-    J3.Get_cards(JCa.deck.pop(0))
-    J4.Get_cards(JCa.deck.pop(0))
-    J4.Get_cards(JCa.deck.pop(0))
+    J1.get_cards(JCa.deck.pop(0))
+    J1.get_cards(JCa.deck.pop(0))
+    J2.get_cards(JCa.deck.pop(0))
+    J2.get_cards(JCa.deck.pop(0))
+    J3.get_cards(JCa.deck.pop(0))
+    J3.get_cards(JCa.deck.pop(0))
+    J4.get_cards(JCa.deck.pop(0))
+    J4.get_cards(JCa.deck.pop(0))
 
     print(JCa.deck)
     print(J1.Jcards)
@@ -139,4 +155,4 @@ def SetUp():
     # ------------------------------------------------------------------------ #
 
 if __name__ == "__main__":
-    SetUp()
+    SetUp() 

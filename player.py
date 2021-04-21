@@ -39,9 +39,16 @@ class Player():
     # ---------------------------  Public methods  -------------------------- #      
 
     # Esta función agrega la carta y lo guarda en Jcards
-    def Get_cards(self, card):
+    def get_cards(self, card):
         self.__Jcards.append(card)
         return
+
+    def Get_coin(self):
+        self.Jcoin += 1
+        return
+
+    def Lose_coin(self):
+        self.Jcoin -= 1
 
     # Esta función mostrará tus cartas y su información
     def See_cards(self):
@@ -50,26 +57,36 @@ class Player():
         for card in self.__Jcards:
             if(card == "D"):
                 print(str(i) + ") Duque")
-                print(" - Impuesto: Puedes tomar 3 monedas.")
-                print(" - Contrataque: Puedes bloquear \'Ayuda Extranjera\'.")
             elif(card == "A"):
                 print(str(i) + ") Asesino")
-                print(" - Asesinato: Puedes pagar 3 monedas para quitar la carta de un jugador.")
-                print(" - Contraataque: Ninguna.")
             elif(card == "Ca"):
                 print(str(i) + ") Capitán")
-                print(" - Extorsión: Puedes tomar 2 monedas a otro jugador.")
-                print(" - Contrataque: Puedes bloquear \'Extorsión\'.")
             elif(card == "E"):
                 print(str(i) + ") Embajador")
-                print(" - Cambio: Puedes tomar 2 cartas del mazo y escoger cual de ellas reemplazar con una de tus cartas.")
-                print(" - Contrataque: Puedes bloquear \'Extorsión\'.")
             else:
                 print(str(i) + ") Condesa")
-                print(" - Acción: Ninguna.")
-                print(" - Contrataque: Puedes bloquear \'Asesinato\'.")
             print("\n")
             i += 1
+
+    def see_actions(self):
+        print("Las acciones que tiene cada carta son: ")
+        print("Duque: ")
+        print("1.- Impuesto: Puedes tomar 3 monedas.")
+        print("2.- Contrataque: Puedes bloquear \'Ayuda Extranjera\'.")
+        print("Asesino: ")
+        print("1.- Asesinato: Puedes pagar 3 monedas para quitar la carta de un jugador.")
+        print("2.- Contraataque: Ninguna.")
+        print("Capitan: ")
+        print("1.- Extorsión: Puedes tomar 2 monedas a otro jugador.")
+        print("2.- Contrataque: Puedes bloquear \'Extorsión\'.")
+        print("Embajador: ")
+        print("1.- Cambio: Puedes tomar 2 cartas del mazo y escoger cual de ellas reemplazar con una de tus cartas.")
+        print("2.- Contrataque: Puedes bloquear \'Extorsión\'.")
+        print("Condesa: ")
+        print("1.- Acción: Ninguna.")
+        print("2.- Contrataque: Puedes bloquear \'Asesinato\'.")
+
+
 
     # Esta función podrás escoger que acción haras
     def Take_an_action(self):
@@ -161,5 +178,5 @@ class Player():
         return
 
 
-J1 = Player(1, ["D", "Ca"], 2)
-print(J1.Jcards)
+#J1 = Player(1, ["D", "Ca"], 2)
+#print(J1.Jcards)

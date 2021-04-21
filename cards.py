@@ -1,28 +1,29 @@
-# Importa la clase deck
-
-from deck import Deck
 
 # Definimos la clase Cartas para almacenar las cartas de los jugadores
 
-class Cards(Deck):
+class Cards():
 
     # -------------------------------  Builder  ------------------------------ #
-
+    
     # Entrada:
-    def __init__(self, Jcards):
-        self.__Jcards = Jcards   # Jcards (list)
+    def __init__(self, character):
+        self.character = character   # character (str)
 
     # ---------------------------  Private methods  -------------------------- #  
-    @property
-    def Jcards(self):
-        return self.__Jcards
 
-    @Jcards.setter
-    def Jcards(self, Jcards):
-        self.__Jcards = Jcards
+    def character(self):
+        return self.character
+
+
     # ---------------------------  Public methods  --------------------------- #
 
-    # Da la carta de la baraja a un jugador
+    def action(self):
+        if self.character == "A":
+            print("Tu tarjeta es Asesino")
+        return
     
 
 # ---------------------------------------------------------------------------- #
+
+#carta = Cards("A")
+#carta.action()
