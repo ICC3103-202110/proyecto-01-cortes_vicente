@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 #Imprtamos librerías y archivos '.py'
 
@@ -36,11 +37,35 @@ class Game():
         else:
             print("\nEscogiste el modo de 4 Jugadores\n\nCargando...")
             tm.sleep(2)
+=======
+#Imprtamos librería random y archivos '.py'
+import random as rd
+from cards import Cards
+from player import Player
+
+# Creamos la clase Game
+class Game():
+
+    # Definimos los atributos
+    def __init__(self):
+        self.deck = []
+        self.players = []
+        
+    # Comienzo del juego
+    def begin(self):
+        print("\n   ---- COUP ----   \n")
+        self.create_deck()
+        opt = self.choose_mode()
+        if opt == 3:
+            self.multiplayer_3P()
+        else:
+>>>>>>> 2ecf601720b4b3196a84859244e9f9a033eee585
             self.multiplayer_4P()
         return
 
     # Modo 3 Jugadores
     def multiplayer_3P(self):
+<<<<<<< HEAD
         os.system('clear')
         self.give_cards(3)                 # 3)
         turn = 1
@@ -63,10 +88,16 @@ class Game():
             os.system('clear')
             turn += 1
             
+=======
+        print("Estás en el modo de 3P\n")
+        self.give_cards(3)
+        self.show_coins(3)
+>>>>>>> 2ecf601720b4b3196a84859244e9f9a033eee585
         return
 
     # Modo 4 Jugadores
     def multiplayer_4P(self):
+<<<<<<< HEAD
         os.system('clear')
         self.give_cards(4)                 # 3)
         turn = 1
@@ -91,6 +122,13 @@ class Game():
 
 # --------------- 1)
 
+=======
+        print("Estás en el modo de 4P\n")
+        self.give_cards(4)
+        self.show_coins(4)
+        return
+
+>>>>>>> 2ecf601720b4b3196a84859244e9f9a033eee585
     # Crea la baraja de cartas
     def create_deck(self):
         i = 0
@@ -109,9 +147,12 @@ class Game():
         rd.shuffle(self.deck)
         return
 
+<<<<<<< HEAD
 
 # --------------- 2)
 
+=======
+>>>>>>> 2ecf601720b4b3196a84859244e9f9a033eee585
     # Escoge el modo del juego
     def choose_mode(self):
         opt = int(input("Seleccione la cantidad de Jugadores para jugar (3 o 4): "))
@@ -133,10 +174,14 @@ class Game():
             self.players.append(Player(3, [], 2))
             self.players.append(Player(4, [], 2))
         return
+<<<<<<< HEAD
 
 
 # --------------- 3)
 
+=======
+    
+>>>>>>> 2ecf601720b4b3196a84859244e9f9a033eee585
     # Le da a los jugadores las cardas iniciales
     def give_cards(self, players):
         i = 0
@@ -145,6 +190,7 @@ class Game():
             self.players[i].get_cards(self.deck.pop(0))
 
             # PRUEBA
+<<<<<<< HEAD
             """
             print("Jugador " + str(i+1))
             print(self.players[i].Jcards[0].character)
@@ -156,6 +202,14 @@ class Game():
 
 # --------------- 4)
 
+=======
+            print("Jugador " + str(i+1))
+            print(self.players[i].Jcards[0].character)
+            print(self.players[i].Jcards[1].character)
+            i += 1
+        return
+    
+>>>>>>> 2ecf601720b4b3196a84859244e9f9a033eee585
     # Muestra las monedas de los jugadores
     def show_coins(self, players):
         i = 0
@@ -166,9 +220,13 @@ class Game():
         print("")
         return
 
+<<<<<<< HEAD
 
 # --------------- PRUEBA
 
+=======
+    #PRUEBA
+>>>>>>> 2ecf601720b4b3196a84859244e9f9a033eee585
     def show_deck(self):
         i = 0
         while i < len(self.deck):
@@ -177,6 +235,7 @@ class Game():
         print("\n")
         return
 
+<<<<<<< HEAD
     
 
 
@@ -185,3 +244,8 @@ class Game():
 coup = Game()
 coup.begin()
 print("¡Muchas gracias por jugar!")
+=======
+
+coup = Game()
+coup.begin()
+>>>>>>> 2ecf601720b4b3196a84859244e9f9a033eee585
