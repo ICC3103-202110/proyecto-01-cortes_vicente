@@ -14,16 +14,3 @@ class Cards():
     def character(self):
         return self.character
 
-
-# -------------------- Funciones --------------------
-
-    def action(self):
-        if self.character == "A":
-            print("Tu tarjeta es Asesino")
-        return
-    
-
-# --------------- PRUEBA
-
-#carta = Cards("A")
-#carta.action()

@@ -11,10 +11,11 @@ class Player():
 
 # -------------------- Atributos --------------------
 
-    def __init__(self, id, Jcards, Jcoins):
+    def __init__(self, id, Jcards, Jcoins, stillPlaying):
         self.__id = id   # id (int)
         self.__Jcards = Jcards # Jcards (list)
         self.__Jcoins = Jcoins #Jcoins (int)
+        self.__stillPlaying = stillPlaying # 1 si sigue jugando, 0 si pierden
 
 
 # -------------------- Autoreferencial -------------------- 
@@ -43,6 +44,15 @@ class Player():
     def Jcoins(self, Jcoins):
         self.__Jcoins = Jcoins
     
+    @property
+    def stillPlaying(self):
+        return self.__stillPlaying
+
+    @stillPlaying.setter
+    def stillPlaying(self, stillPlaying):
+        self.__stillPlaying = stillPlaying
+
+    
 # -------------------- Funciones --------------------    
 
     # Esta función agrega la carta y lo guarda en Jcards
@@ -50,17 +60,29 @@ class Player():
         self.__Jcards.append(card)
         return
 
+    def remove_influence(self):
+        LoseCard = int(input("Elige cual de tus cartas quieres eliminar: "))
+        self.Jcards.pop(LoseCard)
+        return 
+    def Coup_to(self):
+        Jcoup = int(input("Jugador " + str(self.id) + " elige a que jugador dirijes la accion 'Golpe': "))
+        return Jcoup
+
     def Get_coin(self):
         self.Jcoins += 1
         return
 
+
     def Lose_coin(self):
         self.Jcoins -= 1
 
+     #Esta función muestra tus monedas
+    def show_coins(self):
+        print(" Monedas de Jugador " + str(self.__id) + ": " + str(self.__Jcoins))
+        return
 
     # Esta función mostrará tus cartas y su información
     def see_cards(self):
-        i = 0
         print("\n Cartas del Jugador " + str(self.__id) + ":\n")
         for i in range(len(self.__Jcards)):
             if(self.__Jcards[i].character == "D"):
@@ -84,9 +106,7 @@ class Player():
                 print(" - Acción: Ninguna.")
                 print(" - Contrataque: Puedes bloquear \'Asesinato\'.")
             print("\n")
-            i += 1
-        exit = input("\nPresiona enter para salir: ")
-        self.clear()
+        input("\nPresiona enter para salir: ")
         return
 
 
@@ -108,7 +128,6 @@ class Player():
         print("1.- Acción: Ninguna.")
         print("2.- Contrataque: Puedes bloquear \'Asesinato\'.")
         exit = input("\nPresiona enter para salir: ")
-        self.clear()
         return
 
 
@@ -148,44 +167,7 @@ class Player():
             print("Extorsión.")
 
         return option
-    
-    # Esta función verificará si alguien quiere hacer un desafio por tu acción
-    def challenge3P(self, id1, id2):
-
-        print("\n¿Algún jugador quiere desafiar su acción?\n")
-        print(" 1) Jugador " + str(id1) + ".")
-        print(" 2) Jugador " + str(id2) + ".")
-        print(" 3) Ninguno.")
-
-        option = int(input("Escoge quien desafiará (1 a 3): "))
-
-        while option < 1 or option > 3:
-            print("\nEscoge bien tu opción")
-            option = int(input("Escoge quien desafiará (1 a 3): "))
-        
-        if(option == 1):
-            print("Jugador " + str(id1) + " te desafiará!")
-        elif(option == 2):
-            print("Jugador " + str(id2) + " te desafiará!")
-        else:
-            print("Nadie te ha desafiado")
-        return option
-    
-    
-    def true_challenge3P(self):
-        a = 4
-        while a >= 4 and a <= 7:
-            if self.take_an_action == 4:
-                for i in range(2):
-                    if self.Jcards[i] == "D":
-                        print("El jugador" + str(self.id) + " tiene la carta")
-                        print("El jugador " + str(self.challenge3P) + " pierde una influencia")
-                        break
-            a += 1
-        return ""
-    
-    
-
+  
 
     def challenge4P(self, id1, id2, id3):
 
@@ -211,17 +193,3 @@ class Player():
             print("Nadie te ha desafiado")
         return option
 
-    
-    #Esta función muestra tus monedas
-    def show_coins(self):
-        print(" Monedas de Jugador " + str(self.__id) + ": " + str(self.__Jcoins))
-        return
-
-    def clear(self):
-        return os.system('clear')
-
-
-# --------------- PRUEBA
-
-#J1 = Player(1, ["D", "Ca"], 2)
-#print(J1.Jcards)
