@@ -507,6 +507,7 @@ class Game():
                 if(playerDefense.Jcards[i].character == "A"):
                     truth += 1
                     
+                    
 
             if truth > 0:
                 print("El jugador defensa tiene un Asesino.\nEl jugador defensa gana el desafio.")

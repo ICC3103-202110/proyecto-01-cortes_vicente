@@ -107,6 +107,10 @@ class Player():
                 print(" - Contrataque: Puedes bloquear \'Asesinato\'.")
             print("\n")
         input("\nPresiona enter para salir: ")
+<<<<<<< HEAD
+=======
+        self.clear()
+>>>>>>> bd914a111136828a05ef81c732d771d679dfdc63
         return
 
 
@@ -193,3 +197,22 @@ class Player():
             print("Nadie te ha desafiado")
         return option
 
+<<<<<<< HEAD
+=======
+    def clear(self):
+        return os.system('clear')
+
+
+# --------------- PRUEBA
+
+#J1 = Player(1, ["D", "Ca"], 2)
+#print(J1.Jcards)
+
+"""
+PRUEBA
+A = Player(1,["A","D"],2)
+A.Get_coin()
+A.Get_coin()
+A.show_coins()
+"""
+>>>>>>> bd914a111136828a05ef81c732d771d679dfdc63
