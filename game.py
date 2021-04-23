@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 #Imprtamos librerías y archivos '.py'
 
@@ -19,6 +18,7 @@ class Game():
     def __init__(self):
         self.deck = []
         self.players = []
+        self.log = []
 
 
 # -------------------- Recorrido del código --------------------
@@ -26,93 +26,49 @@ class Game():
 
     # Comienzo del juego
     def begin(self):
-        os.system('clear')
+        self.clear() # Esto es para limpiar la pantalla
         print("\n   ---- COUP ----   \n")
         self.create_deck()                 # 1)
         opt = self.choose_mode()           # 2)
         if opt == 3:
-            print("\nEscogiste el modo de 3 Jugadores\n\nCargando...")
-            tm.sleep(2)
+            print("\nEscogiste el modo de 3 Jugadores\n\n")
             self.multiplayer_3P()
         else:
-            print("\nEscogiste el modo de 4 Jugadores\n\nCargando...")
-            tm.sleep(2)
-=======
-#Imprtamos librería random y archivos '.py'
-import random as rd
-from cards import Cards
-from player import Player
-
-# Creamos la clase Game
-class Game():
-
-    # Definimos los atributos
-    def __init__(self):
-        self.deck = []
-        self.players = []
-        
-    # Comienzo del juego
-    def begin(self):
-        print("\n   ---- COUP ----   \n")
-        self.create_deck()
-        opt = self.choose_mode()
-        if opt == 3:
-            self.multiplayer_3P()
-        else:
->>>>>>> 2ecf601720b4b3196a84859244e9f9a033eee585
+            print("\nEscogiste el modo de 4 Jugadores\n\n")
             self.multiplayer_4P()
         return
 
     # Modo 3 Jugadores
     def multiplayer_3P(self):
-<<<<<<< HEAD
-        os.system('clear')
+        self.clear() # Esto es para limpiar la pantalla
         self.give_cards(3)                 # 3)
         turn = 1
-        while(turn < 4):
-            self.show_coins(3)             # 4)
+        while(turn < 6):
             if turn == self.players[0].id:
-                print("\n Es turno del Jugador " + str(self.players[0].id))
-                option_chosen = self.players[0].take_an_action()
-                option_duel = self.players[0].challenge3P(self.players[1].id, self.players[2].id)
+                option_chosen = self.player_turn3P(self.players, 1)  # 4)
             elif turn == self.players[1].id:
-                print("\n Es turno del Jugador " + str(self.players[1].id))
-                option_chosen = self.players[1].take_an_action()
-                option_duel = self.players[1].challenge3P(self.players[0].id, self.players[2].id)
+                option_chosen = self.player_turn3P(self.players, 2)  # 4)
             else:
-                print("\n Es turno del Jugador " + str(self.players[2].id))
-                option_chosen = self.players[2].take_an_action()
-                option_duel = self.players[2].challenge3P(self.players[0].id, self.players[1].id)
-            print("Cargando...")
-            tm.sleep(2)
-            os.system('clear')
+                option_chosen = self.player_turn3P(self.players, 3)  # 4)
+            self.clear() # Esto es para limpiar la pantalla
             turn += 1
-            
-=======
-        print("Estás en el modo de 3P\n")
-        self.give_cards(3)
-        self.show_coins(3)
->>>>>>> 2ecf601720b4b3196a84859244e9f9a033eee585
         return
 
     # Modo 4 Jugadores
     def multiplayer_4P(self):
-<<<<<<< HEAD
-        os.system('clear')
+        self.clear() # Esto es para limpiar la pantalla
         self.give_cards(4)                 # 3)
         turn = 1
         while(turn < 5):
-            self.show_coins(4)             # 4)
             if turn == self.players[0].id:
-                print("Es turno del Jugador " + str(self.players[0].id))
+                option_chosen = self.player_turn4P(self.players, 1)  # 4)
             elif turn == self.players[1].id:
-                print("Es turno del Jugador " + str(self.players[1].id))
+                option_chosen = self.player_turn4P(self.players, 2)  # 4)
             elif turn == self.players[2].id:
-                print("Es turno del Jugador " + str(self.players[2].id))
+                option_chosen = self.player_turn4P(self.players, 3)  # 4)
             else:
-                print("Es turno del Jugador " + str(self.players[3].id))
-            tm.sleep(2)
-            os.system('clear')
+                option_chosen = self.player_turn4P(self.players, 4)  # 4)
+            self.clear() # Esto es para limpiar la pantalla
             turn += 1
         return
 
@@ -122,13 +78,6 @@ class Game():
 
 # --------------- 1)
 
-=======
-        print("Estás en el modo de 4P\n")
-        self.give_cards(4)
-        self.show_coins(4)
-        return
-
->>>>>>> 2ecf601720b4b3196a84859244e9f9a033eee585
     # Crea la baraja de cartas
     def create_deck(self):
         i = 0
@@ -147,12 +96,9 @@ class Game():
         rd.shuffle(self.deck)
         return
 
-<<<<<<< HEAD
 
 # --------------- 2)
 
-=======
->>>>>>> 2ecf601720b4b3196a84859244e9f9a033eee585
     # Escoge el modo del juego
     def choose_mode(self):
         opt = int(input("Seleccione la cantidad de Jugadores para jugar (3 o 4): "))
@@ -174,14 +120,10 @@ class Game():
             self.players.append(Player(3, [], 2))
             self.players.append(Player(4, [], 2))
         return
-<<<<<<< HEAD
 
 
 # --------------- 3)
 
-=======
-    
->>>>>>> 2ecf601720b4b3196a84859244e9f9a033eee585
     # Le da a los jugadores las cardas iniciales
     def give_cards(self, players):
         i = 0
@@ -190,7 +132,6 @@ class Game():
             self.players[i].get_cards(self.deck.pop(0))
 
             # PRUEBA
-<<<<<<< HEAD
             """
             print("Jugador " + str(i+1))
             print(self.players[i].Jcards[0].character)
@@ -202,31 +143,251 @@ class Game():
 
 # --------------- 4)
 
-=======
-            print("Jugador " + str(i+1))
-            print(self.players[i].Jcards[0].character)
-            print(self.players[i].Jcards[1].character)
-            i += 1
+    # Esta es la función principal del turno del jugador, podrá escoger entre ver sus cartas
+    # las acciones de los personajes y tomar una acción
+    def player_turn3P(self, players, turn):
+        opt = 0
+        action_opt = 0
+        i = 0
+        for i in range(len(self.players)):
+
+            if turn == self.players[i].id:
+
+                while(opt != 4):
+
+                    self.show_coins(self.players)
+
+                    print("\n Es turno del Jugador " + str(self.players[i].id))
+                    print(" ¿Que deseas hacer primero? \n")
+                    print(" 1) Ver tus cartas.")
+                    print(" 2) Ver las acciones de todas las cartas.")
+                    print(" 3) Ver historial de jugadas.")
+                    print(" 4) Realizar una acción.\n")
+
+                    opt = int(input("Decide (1 a 4): "))
+
+                    if(opt == 1):
+                        self.clear() 
+                        self.players[i].see_cards()
+
+                    elif(opt == 2):
+                        self.clear()
+                        self.players[i].see_actions()
+
+                    elif(opt == 3):
+                        self.clear()
+                        for k in range(len(self.log)):
+                            print(self.log[k])
+                        exit = input("\nPresiona enter para salir: ")
+                        self.clear()
+
+                    elif(opt == 4):
+                        self.clear()
+                        option_list = ["Ingresos","Ayuda extranjera","Golpe","Impuesto","Asesinato","Cambio","Extorsion"]
+                        action_opt = self.players[i].take_an_action()  
+
+
+                        for j in range(len(option_list)):
+                            if(action_opt == j+1):
+                                a = ["Turno "+ str(i+1) + ": El jugador " + str(self.players[i].id) + " utiliza la opcion '" + option_list[j]+"'"]
+                                self.log.append(a)
+                                if option_list[j] == 1:
+                                    self.players[i].Get_coin()
+                                    
+                                    
+
+                        
+                        #Desafio del Ataque
+                        if action_opt >= 4 and action_opt <= 7:
+
+                            truth = self.challenge3P(self.players[i], self.players[(i + 1) % len(self.players)], self.players[(i + 2) % len(self.players)], action_opt, turn, option_list)
+     
+                            input("\nPresiona enter para salir: ")
+
+                        #Contracción
+                        #if action_opt == 2 or action_opt == 5 or action_opt == 7:
+
+                        #Realiza acción
+                        if(action_opt == 1):
+                            self.players[i].Get_coin()
+                        
+                        if(action_opt == 2):
+                            self.players[i].Get_coin()
+                            self.players[i].Get_coin()
+                        
+                        if(action_opt == 3):
+                            for h in range(7):
+                                self.players[i].Lose_coin()
+                                # Aqui falta un metodo para que un jugador pierda una carta
+                        if(action_opt = 4):
+                            self.players[i].Get_coin()
+                            self.players[i].Get_coin()
+                            self.players[i].Get_coin()
+                            
+                        if(action_opt = 5):
+                            self.players[i].Lose_coin()
+                            self.players[i].Lose_coin()
+                            self.players[i].Lose_coin()
+                            # Aqui falta un metodo para que un jugador pierda una carta
+                        #if(action_opt = 6):
+                        #if(action_opt = 7):
+                            
+
+                    else:
+                        print("Solo se puede escoger las cuatro opciones, Intente de nuevo.")
+                        self.clear()
         return
-    
->>>>>>> 2ecf601720b4b3196a84859244e9f9a033eee585
-    # Muestra las monedas de los jugadores
+
+    # Esta es la versión para cuatro jugadores
+    def player_turn4P(self, players, turn):
+        opt = 0
+        action_opt = 0
+        i = 0
+        for i in range(len(self.players)):
+            if turn == self.players[i].id:
+                while(opt != 3):
+                    self.show_coins(self.players)
+                    print("\n Es turno del Jugador " + str(self.players[i].id))
+                    print(" ¿Que deseas hacer primero? \n")
+                    print(" 1) Ver tus cartas.")
+                    print(" 2) Ver las acciones de todas las cartas.")
+                    print(" 3) Realizar una acción.\n")
+                    opt = int(input("Decide (1 a 3): "))
+                    if(opt == 1):
+                        self.clear() 
+                        self.players[i].see_cards()
+                    elif(opt == 2):
+                        self.clear()
+                        self.players[i].see_actions()
+                    elif(opt == 3):
+                        self.clear()
+                        action_opt = self.players[i].take_an_action()
+                        if action_opt >= 4 and action_opt <= 7 :
+                            option_duel = self.players[i].challenge4P(self.players[(i + 1) % len(self.players)].id, self.players[(i + 2) % len(self.players)].id, self.players[(i + 3) % len(self.players)].id)
+                    else:
+                        print("Solo se puede escoger las tres opciones, Intente de nuevo.")
+                        tm.sleep(2)
+                        self.clear()
+        return
+
+    # Muestra las moneds de todos los jugadores
     def show_coins(self, players):
         i = 0
         print("")
-        while i < players:
+        while i < len(self.players):
             print(" Monedas de Jugador " + str(self.players[i].id) + ": " + str(self.players[i].Jcoins))
             i += 1
         print("")
         return
 
-<<<<<<< HEAD
+
+# --------------- 5)
+
+# Esta función verificará si alguien quiere hacer un desafio por tu acción
+    def challenge3P(self, playerPrincipal, otherPlayer1, otherPlayer2, playerPrincipalAction, turn, option_list):
+
+        truth = 0
+
+        print("\n¿Algún jugador quiere desafiar su acción?\n")
+        print(" 1) Jugador " + str(otherPlayer1.id) + ".")
+        print(" 2) Jugador " + str(otherPlayer2.id) + ".")
+        print(" 3) Ninguno.")
+
+        option = int(input("Escoge quien desafiará (1 a 3): "))
+
+        while option < 1 or option > 3:
+            print("\nEscoge bien tu opción")
+            option = int(input("Escoge quien desafiará (1 a 3): "))
+        
+        if(option == 1):
+            print("Jugador " + str(otherPlayer1.id) + " te desafiará!")
+            option = otherPlayer1.id
+        elif(option == 2):
+            print("Jugador " + str(otherPlayer2.id) + " te desafiará!")
+            option = otherPlayer2.id
+        else:
+            print("Nadie te ha desafiado")
+            option = 0
+        print("\n")
+
+        if option != 0:
+
+            for k in range(len(self.players)):
+                if(self.players[k].id == option):
+                    truth = self.true_challenge3P(playerPrincipalAction, self.players[k], playerPrincipal)
+
+        
+                    a = ["Turno "+ str(turn) + ": El jugador " + str(self.players[k].id) + " desafia la acción '" + option_list[playerPrincipalAction-1]+"' hecha por el jugador "+ str(playerPrincipal.id)]
+                    self.log.append(a)
+
+                    
+        
+        print("truth = " + str(truth))
+        return truth
+    
+    
+    def true_challenge3P(self, attack, playerAttack, playerDefense):
+
+        print("El desafio entre el jugador " + str(playerDefense.id) + " y jugador " + str(playerAttack.id) + " comienza!!")
+        
+        truth = 0
+        if(attack == 4): #Impuesto
+
+            for i in range(len(playerDefense.Jcards)):
+                if(playerDefense.Jcards[i].character == "D"):
+                    truth += 1
+
+                if truth > 0:
+                    print("El jugador defensa tiene un Duque.\nEl jugador defensa gana el desafio.")
+                    return 1
+                else:
+                    print("El jugador defensa no tiene un Duque.\nEl jugador que desafió gana el desafio.")
+                    return 0
+
+        elif(attack == 5): #Asesinato
+
+            for i in range(len(playerDefense.Jcards)):
+                if(playerDefense.Jcards[i].character == "A"):
+                    truth += 1
+
+                if truth > 0:
+                    print("El jugador defensa tiene un Asesino.\nEl jugador defensa gana el desafio.")
+                    return 1
+                else:
+                    print("El jugador defensa no tiene un Asesino.\nEl jugador que desafió gana el desafio.")
+                    return 0
+
+        elif(attack == 6): #Cambio
+
+            for i in range(len(playerDefense.Jcards)):
+                if(playerDefense.Jcards[i].character == "E"):
+                    truth += 1
+
+                if truth > 0:
+                    print("El jugador defensa tiene un Asesino.\nEl jugador defensa gana el desafio.")
+                    return 1
+                else:
+                    print("El jugador defensa no tiene un Asesino.\nEl jugador que desafió gana el desafio.")
+                    return 0
+                
+        else: #Extorsión
+
+            for i in range(len(playerDefense.Jcards)):
+                if(playerDefense.Jcards[i].character == "Ca"):
+                    truth += 1
+
+                if truth > 0:
+                    print("El jugador defensa tiene un Capitán.\nEl jugador defensa gana el desafio.")
+                    return 1
+                else:
+                    print("El jugador defensa no tiene un Capitán.\nEl jugador que desafió gana el desafio.")
+                    return 0
+                
+        return 0
+
 
 # --------------- PRUEBA
 
-=======
-    #PRUEBA
->>>>>>> 2ecf601720b4b3196a84859244e9f9a033eee585
     def show_deck(self):
         i = 0
         while i < len(self.deck):
@@ -234,18 +395,14 @@ class Game():
             i += 1
         print("\n")
         return
-
-<<<<<<< HEAD
     
+    def clear(self):
+        return os.system('clear')
 
-
+    
 # --------------- Comienzo del código
-
+"""
 coup = Game()
 coup.begin()
 print("¡Muchas gracias por jugar!")
-=======
-
-coup = Game()
-coup.begin()
->>>>>>> 2ecf601720b4b3196a84859244e9f9a033eee585
+"""
