@@ -216,10 +216,10 @@ class Game():
                                 input("Presiona enter para salir: ")
 
                             #Realiza acción
-                            if(action_opt == 1):
+                            if(action_opt == 1): #LISTO
                                 self.players[i].get_coin()
                             
-                            elif(action_opt == 2):
+                            elif(action_opt == 2): #LISTO
                                 if(truth2 == False):
                                     self.players[i].get_coin()
                                     self.players[i].get_coin()
@@ -239,7 +239,7 @@ class Game():
                                 
                                     # Aqui falta un metodo para que un jugador pierda una carta
 
-                            elif(action_opt == 4):
+                            elif(action_opt == 4): #LISTO
                                 if(truth1 == True):
                                     self.players[i].get_coin()
                                     self.players[i].get_coin()
@@ -255,9 +255,9 @@ class Game():
                                         print("Aqui falta un metodo para que un jugador pierda una carta.")
 
 
-                            elif(action_opt == 6):
+                            elif(action_opt == 6): #LISTO
                                 if(truth1 == True):
-                                    self.players[i] = self.changeCards(self.players[i])
+                                    self.change_cards(self.players[i])
 
 
                             elif(action_opt == 7):
@@ -294,14 +294,16 @@ class Game():
 
                         if(opt == 1):
                             self.players[i].see_cards()
+                            input("\nPresiona enter para salir: ")
 
                         elif(opt == 2):
                             self.players[i].see_actions()
+                            input("\nPresiona enter para salir: ")
                         
                         elif(opt == 3):
                             for k in range(len(self.log)):
                                 print(self.log[k])
-                            exit = input("\nPresiona enter para salir: ")
+                            input("\nPresiona enter para salir: ")
 
                         elif(opt == 4):
                             
@@ -339,10 +341,10 @@ class Game():
                                         input("\nPresiona enter para salir: ")
 
                             #Realiza acción
-                            if(action_opt == 1):
+                            if(action_opt == 1): #LISTO
                                 self.players[i].get_coin()
                             
-                            if(action_opt == 2):
+                            if(action_opt == 2): #LISTO
                                 if(truth2 == 0):
                                     self.players[i].get_coin()
                                     self.players[i].get_coin()
@@ -361,7 +363,7 @@ class Game():
             
                                 
                                     # Aqui falta un metodo para que un jugador pierda una carta
-                            if(action_opt == 4):
+                            if(action_opt == 4): #LISTO
                                 if(truth1 == 1):
                                     self.players[i].get_coin()
                                     self.players[i].get_coin()
@@ -373,12 +375,12 @@ class Game():
                                 self.players[i].lose_coin()
                                 # Aqui falta un metodo para que un jugador pierda una carta
 
-                            if(action_opt == 6):
+                            if(action_opt == 6): #LISTO
                                 if(truth1 == 1):
-                                    self.players[i] = self.changeCards(self.players[i])
+                                    self.change_cards(self.players[i])
 
 
-                            #if(action_opt = 7):
+                            #if(action_opt == 7):
                              
                         else:
                             print("Solo se puede escoger las cuatro opciones, Intente de nuevo.")
@@ -427,13 +429,14 @@ class Game():
         print("\n¿Algún jugador quiere desafiar su acción?\n")
         print(" 1) Jugador " + str(otherPlayer1.id) + ".")
         print(" 2) Jugador " + str(otherPlayer2.id) + ".")
-        print(" 3) Ninguno.")
+        print(" 3) Ninguno.\n")
 
         option = int(input("Escoge quien desafiará (1 a 3): "))
 
         while option < 1 or option > 3:
             print("\nEscoge bien tu opción")
             option = int(input("Escoge quien desafiará (1 a 3): "))
+
         if is_contraction == False:
             if(option == 1):
                 print("¡El Jugador " + str(otherPlayer1.id) + " te desafiará!")
@@ -562,6 +565,7 @@ class Game():
 
 
     def true_challenge_contra3P(self, playerAttack, playerDefense, playerDefenseAction):
+        
 
         print("\n ----- DESAFÍO -----\n\n¡¡El desafio entre el Jugador " + str(playerDefense.id) + " y el Jugador " + str(playerAttack.id) + " comienza!!")
         truth = 0
@@ -606,6 +610,8 @@ class Game():
                 return False
                 
         return False
+
+
 
 
     def challenge4P(self, playerPrincipal, otherPlayer1, otherPlayer2, otherPlayer3, playerPrincipalAction, turn, option_list, contraction):
@@ -699,7 +705,7 @@ class Game():
         return option
 
 
-    def changeCards(self, player):
+    def change_cards(self, player):
 
         print("\n Escoge una de las dos cartas:\n")
         for i in range(2):
@@ -724,16 +730,26 @@ class Game():
                 print(" - Acción: Ninguna.")
                 print(" - Contrataque: Puedes bloquear \'Asesinato\'.")
             print("\n")
-
+        
         cardSelected = int(input("Cual quieres (1 o 2): "))
+        while cardSelected < 1 or cardSelected > 2:
+            print("\nEscoge bien tu opción")
+            cardSelected = int(input("Cual quieres (1 o 2): "))
+
+        print("\n Estas son tus cartas:\n")
+        player.see_cards()
 
         cardReplace = int(input("¿Con cual quieres reemplazar? (1 o 2): "))
+        while cardSelected < 1 or cardSelected > 2:
+            print("\nEscoge bien tu opción")
+            cardReplace = int(input("¿Con cual quieres reemplazar? (1 o 2): "))
 
-        cardBackup = player.Jcards[cardReplace-1]
-        player.Jcards[cardReplace-1] = self.deck[cardSelected-1]
+        print("\n Reemplazaste la carta " + player.Jcards[cardReplace - 1].characterComplete() + " por la carta " + self.deck[cardSelected - 1].characterComplete())
+        cardBackup = player.Jcards[cardReplace - 1]
+        player.Jcards[cardReplace - 1] = self.deck[cardSelected - 1]
         self.deck.append(cardBackup)
 
-        return player
+        return
 
 
 # --------------- PRUEBA

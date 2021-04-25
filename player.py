@@ -108,7 +108,6 @@ class Player():
                 print(" - Acción: Ninguna.")
                 print(" - Contrataque: Puedes bloquear \'Asesinato\'.")
             print("")
-        input("\nPresiona enter para salir: ")
         return
 
 
@@ -129,7 +128,6 @@ class Player():
         print("\n Condesa: ")
         print("1.- Acción: Ninguna.")
         print("2.- Contrataque: Puedes bloquear \'Asesinato\'.")
-        exit = input("\nPresiona enter para salir: ")
         return
 
 

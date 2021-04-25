@@ -18,3 +18,15 @@ class Cards():
     def playable(self):
         return self.playable
 
+    def characterComplete(self):
+        if self.character == "D":
+            return "Duque"
+        elif self.character == "A":
+            return "Asesino"
+        elif self.character == "Ca":
+            return "Capitán"
+        elif self.character == "E":
+            return "Embajador"
+        else:
+            return "Condesa"
+
