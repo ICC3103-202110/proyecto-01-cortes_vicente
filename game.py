@@ -13,6 +13,7 @@ from player import Player
 
 class Game():
 
+
 # -------------------- Atributos --------------------
 
     def __init__(self):
@@ -28,8 +29,8 @@ class Game():
     def begin(self):
         print("\n   ---- COUP ----   \n")
         self.create_deck()                 # 1)
-        opt = self.choose_mode()           # 2)
-        if opt == 3:
+        choose_mode = self.choose_mode()   # 2)
+        if choose_mode == 3:
             print("\nEscogiste el modo de 3 Jugadores\n\n")
             self.multiplayer_3P()
         else:
@@ -39,43 +40,43 @@ class Game():
 
     # Modo 3 Jugadores
     def multiplayer_3P(self):
-        self.give_cards(3)                 # 3)
+        self.give_cards()                  # 3)
         turn = 1
         gameplay = 3
         while(gameplay > 1):
             if (turn % 3) == self.players[0].id:
-                option_chosen = self.player_turn3P(self.players, 1)  # 4)
+                option_chosen = self.player_turn3P(self.players[0].id)  # 4)
             elif (turn % 3) == self.players[1].id:
-                option_chosen = self.player_turn3P(self.players, 2)  # 4)
+                option_chosen = self.player_turn3P(self.players[1].id)  # 4)
             else:
-                option_chosen = self.player_turn3P(self.players, 3)  # 4)
+                option_chosen = self.player_turn3P(self.players[2].id)  # 4)
             turn += 1
 
             gameplay = 0
             for i in range(3):
-                if(self.players[i].stillPlaying == 1):
+                if(self.players[i].stillPlaying == True):
                     gameplay += 1
         return
 
     # Modo 4 Jugadores
     def multiplayer_4P(self):
-        self.give_cards(4)                 # 3)
+        self.give_cards()                  # 3)
         turn = 1
         gameplay = 4
         while(gameplay > 1):
             if (turn % 4) == self.players[0].id:
-                option_chosen = self.player_turn4P(self.players, 1)  # 4)
+                option_chosen = self.player_turn4P(self.players[0].id)  # 4)
             elif (turn % 4) == self.players[1].id:
-                option_chosen = self.player_turn4P(self.players, 2)  # 4)
+                option_chosen = self.player_turn4P(self.players[1].id)  # 4)
             elif (turn % 4) == self.players[2].id:
-                option_chosen = self.player_turn4P(self.players, 3)  # 4)
+                option_chosen = self.player_turn4P(self.players[2].id)  # 4)
             else:
-                option_chosen = self.player_turn4P(self.players, 4)  # 4)
+                option_chosen = self.player_turn4P(self.players[3].id)  # 4)
             turn += 1
 
             gameplay = 0
             for i in range(4):
-                if(self.players[i].stillPlaying == 1):
+                if(self.players[i].stillPlaying == True):
                     gameplay += 1
 
         return
@@ -90,11 +91,11 @@ class Game():
     def create_deck(self):
         i = 0
         while i < 3:
-            self.deck.append(Cards("D"))
-            self.deck.append(Cards("A"))
-            self.deck.append(Cards("E"))
-            self.deck.append(Cards("Ca"))
-            self.deck.append(Cards("Co"))
+            self.deck.append(Cards("D", True))
+            self.deck.append(Cards("A", True))
+            self.deck.append(Cards("E", True))
+            self.deck.append(Cards("Ca", True))
+            self.deck.append(Cards("Co", True))
             i += 1
         self.suffle_deck()
         return
@@ -119,23 +120,23 @@ class Game():
     # Crea a los jugadores
     def create_players(self, opt):
         if opt == 3:
-            self.players.append(Player(1, [], 2, 1))
-            self.players.append(Player(2, [], 2, 1))
-            self.players.append(Player(3, [], 2, 1))
+            self.players.append(Player(1, [], 2, True))
+            self.players.append(Player(2, [], 2, True))
+            self.players.append(Player(3, [], 2, True))
         else:
-            self.players.append(Player(1, [], 2, 1))
-            self.players.append(Player(2, [], 2, 1))
-            self.players.append(Player(3, [], 2, 1))
-            self.players.append(Player(4, [], 2, 1))
+            self.players.append(Player(1, [], 2, True))
+            self.players.append(Player(2, [], 2, True))
+            self.players.append(Player(3, [], 2, True))
+            self.players.append(Player(4, [], 2, True))
         return
 
 
 # --------------- 3)
 
     # Le da a los jugadores las cardas iniciales
-    def give_cards(self, players):
+    def give_cards(self):
         i = 0
-        while i < players:
+        while i < len(self.players):
             self.players[i].get_cards(self.deck.pop(0))
             self.players[i].get_cards(self.deck.pop(0))
             i += 1
@@ -146,20 +147,20 @@ class Game():
 
     # Esta es la función principal del turno del jugador, podrá escoger entre ver sus cartas
     # las acciones de los personajes y tomar una acción
-    def player_turn3P(self, players, turn):
+    def player_turn3P(self, player_id):
         opt = 0
         action_opt = 0
         i = 0
         for i in range(len(self.players)):
-
-            if turn == self.players[i].id:
+            if player_id == self.players[i].id:
                 if(self.players[i].stillPlaying == 1):
 
                     while(opt != 4):
 
-                        self.show_coins(self.players)
+                        self.show_coins()
+                        self.show_cards()
 
-                        print("\n Es turno del Jugador " + str(self.players[i].id))
+                        print(" Es turno del Jugador " + str(self.players[i].id))
                         print(" ¿Que deseas hacer primero? \n")
                         print(" 1) Ver tus cartas.")
                         print(" 2) Ver las acciones de todas las cartas.")
@@ -180,57 +181,55 @@ class Game():
                             exit = input("\nPresiona enter para salir: ")
 
                         elif(opt == 4):
-                            option_list = ["Ingresos","Ayuda extranjera","Golpe","Impuesto","Asesinato","Cambio","Extorsion"]
-                            action_opt = self.players[i].take_an_action()  
+                            option_list = ["Ingresos", "Ayuda Extranjera", "Golpe", "Impuesto", "Asesinato", "Cambio","Extorsión"]
 
-                             
+                            if(self.players[i].Jcoins >= 10):
+                                action_opt = 3
+                            else:
+                                action_opt = self.players[i].take_an_action()  
+
                             for j in range(len(option_list)):
                                 if(action_opt == j+1):
                                     a = ["Turno "+ str(i+1) + ": El jugador " + str(self.players[i].id) + " utiliza la opcion '" + option_list[j]+"'"]
                                     self.log.append(a)
-                                    if option_list[j] == 1:
-                                        self.players[i].Get_coin()
                             
-                            truth1 = 0
-                            truth2 = 0
+                            truth1 = False
+                            truth2 = False
 
                             #Desafio del Ataque
                             if action_opt >= 4 and action_opt <= 7:
 
-                                truth1 = self.challenge3P(self.players[i], self.players[(i + 1) % len(self.players)], self.players[(i + 2) % len(self.players)], action_opt, turn, option_list, False)
+                                truth1 = self.challenge3P(self.players[i], self.players[(i + 1) % len(self.players)], self.players[(i + 2) % len(self.players)], action_opt, player_id, option_list, False)
         
-                                input("\nPresiona enter para salir: ")
+                                input("Presiona enter para salir: ")
 
                             #Contracción
                             if action_opt == 2 or action_opt == 5 or action_opt == 7:
 
-                                contra = self.contraction3P(self.players[i], self.players[(i + 1) % len(self.players)], self.players[(i + 2) % len(self.players)], action_opt, turn, option_list)
-
-                                input("\nPresiona enter para salir: ")
+                                contra = self.contraction3P(self.players[i], self.players[(i + 1) % len(self.players)], self.players[(i + 2) % len(self.players)], action_opt, player_id, option_list)
 
                             #Desafío de la Contraacción
                                 for k in range(len(self.players)):
                                     if(self.players[k].id == contra):
-                                        truth2 = self.challenge3P(self.players[k], self.players[(k + 1) % len(self.players)], self.players[(k + 2) % len(self.players)], action_opt, turn, option_list, True)
-                                        input("\nPresiona enter para salir: ")
-                                        if(truth2 == 0):
-                                            contra = 0
+                                        truth2 = self.challenge3P(self.players[k], self.players[(k + 1) % len(self.players)], self.players[(k + 2) % len(self.players)], action_opt, player_id, option_list, True)
+                                        
+                                input("Presiona enter para salir: ")
 
                             #Realiza acción
                             if(action_opt == 1):
-                                self.players[i].Get_coin()
+                                self.players[i].get_coin()
                             
-                            if(action_opt == 2):
-                                if(truth2 == 0):
-                                    self.players[i].Get_coin()
-                                    self.players[i].Get_coin()
+                            elif(action_opt == 2):
+                                if(truth2 == False):
+                                    self.players[i].get_coin()
+                                    self.players[i].get_coin()
                             
-                            if(action_opt == 3):
+                            elif(action_opt == 3):
                                 if(self.players[i].Jcoins < 7):
                                     print("No puedes realizar esta opción.\n")
                                 else:
                                     for h in range(7):
-                                        self.players[i].Lose_coin()
+                                        self.players[i].lose_coin()
                                 
                                 CoupTo = self.players[i].Coup_to()
                                 if CoupTo != self.players[i].id:
@@ -239,44 +238,52 @@ class Game():
             
                                 
                                     # Aqui falta un metodo para que un jugador pierda una carta
-                            if(action_opt == 4):
-                                if(truth1 == 1):
-                                    self.players[i].Get_coin()
-                                    self.players[i].Get_coin()
-                                    self.players[i].Get_coin()
-                                
-                            if(action_opt == 5):
-                                self.players[i].Lose_coin()
-                                self.players[i].Lose_coin()
-                                self.players[i].Lose_coin()
-                                # Aqui falta un metodo para que un jugador pierda una carta
 
-                            if(action_opt == 6):
-                                if(truth1 == 1):
+                            elif(action_opt == 4):
+                                if(truth1 == True):
+                                    self.players[i].get_coin()
+                                    self.players[i].get_coin()
+                                    self.players[i].get_coin()
+                            
+                                
+                            elif(action_opt == 5):
+                                if(truth1 == True):
+                                    self.players[i].lose_coin()
+                                    self.players[i].lose_coin()
+                                    self.players[i].lose_coin()
+                                    if(truth2 == False):
+                                        print("Aqui falta un metodo para que un jugador pierda una carta.")
+
+
+                            elif(action_opt == 6):
+                                if(truth1 == True):
                                     self.players[i] = self.changeCards(self.players[i])
 
 
-                            #if(action_opt = 7):
+                            elif(action_opt == 7):
+                                if(truth1 == True and truth2 == False):
+                                    self.players[i].get_coin()
+                                    self.players[i].get_coin()
                                 
-
                         else:
                             print("Solo se puede escoger las cuatro opciones, Intente de nuevo.")
         return
 
     # Esta es la versión para cuatro jugadores
-    def player_turn4P(self, players, turn):
+    def player_turn4P(self, player_id):
         opt = 0
         action_opt = 0
         i = 0
         for i in range(len(self.players)):
-            if turn == self.players[i].id:
+            if player_id == self.players[i].id:
                 if(self.players[i].stillPlaying == 1):
 
                     while(opt != 4):
 
-                        self.show_coins(self.players)
+                        self.show_coins()
+                        self.show_cards()
 
-                        print("\n Es turno del Jugador " + str(self.players[i].id))
+                        print(" Es turno del Jugador " + str(self.players[i].id))
                         print(" ¿Que deseas hacer primero? \n")
                         print(" 1) Ver tus cartas.")
                         print(" 2) Ver las acciones de todas las cartas.")
@@ -298,16 +305,15 @@ class Game():
 
                         elif(opt == 4):
                             
-                            option_list = ["Ingresos","Ayuda extranjera","Golpe","Impuesto","Asesinato","Cambio","Extorsion"]
+                            option_list = ["Ingresos","Ayuda Extranjera", "Golpe", "Impuesto", "Asesinato", "Cambio","Extorsión"]
                             action_opt = self.players[i].take_an_action()  
 
-
                             for j in range(len(option_list)):
-                                if(action_opt == j+1):
+                                if(action_opt == j + 1):
                                     a = ["Turno "+ str(i+1) + ": El jugador " + str(self.players[i].id) + " utiliza la opcion '" + option_list[j]+"'"]
                                     self.log.append(a)
                                     if option_list[j] == 1:
-                                        self.players[i].Get_coin()
+                                        self.players[i].get_coin()
                             
                             truth1 = 0
                             truth2 = 0
@@ -315,38 +321,38 @@ class Game():
                             #Desafio del Ataque
                             if action_opt >= 4 and action_opt <= 7:
 
-                                truth1 = self.challenge4P(self.players[i], self.players[(i + 1) % len(self.players)], self.players[(i + 2) % len(self.players)], self.players[(i + 3) % len(self.players)], action_opt, turn, option_list, False)
+                                truth1 = self.challenge4P(self.players[i], self.players[(i + 1) % len(self.players)], self.players[(i + 2) % len(self.players)], self.players[(i + 3) % len(self.players)], action_opt, player_id, option_list, False)
         
                                 input("\nPresiona enter para salir: ")
 
                             #Contracción
                             if action_opt == 2 or action_opt == 5 or action_opt == 7:
 
-                                contra = self.contraction4P(self.players[i], self.players[(i + 1) % len(self.players)], self.players[(i + 2) % len(self.players)],  self.players[(i + 3) % len(self.players)], action_opt, turn, option_list)
+                                contra = self.contraction4P(self.players[i], self.players[(i + 1) % len(self.players)], self.players[(i + 2) % len(self.players)],  self.players[(i + 3) % len(self.players)], action_opt, player_id, option_list)
 
                                 input("\nPresiona enter para salir: ")
 
                             #Desafío de la Contraacción
                                 for k in range(len(self.players)):
                                     if(self.players[k].id == contra):
-                                        truth2 = self.challenge4P(self.players[k], self.players[(k + 1) % len(self.players)], self.players[(k + 2) % len(self.players)], self.players[(i + 3) % len(self.players)], action_opt, turn, option_list, True)
+                                        truth2 = self.challenge4P(self.players[k], self.players[(k + 1) % len(self.players)], self.players[(k + 2) % len(self.players)], self.players[(i + 3) % len(self.players)], action_opt, player_id, option_list, True)
                                         input("\nPresiona enter para salir: ")
 
                             #Realiza acción
                             if(action_opt == 1):
-                                self.players[i].Get_coin()
+                                self.players[i].get_coin()
                             
                             if(action_opt == 2):
                                 if(truth2 == 0):
-                                    self.players[i].Get_coin()
-                                    self.players[i].Get_coin()
+                                    self.players[i].get_coin()
+                                    self.players[i].get_coin()
                             
                             if(action_opt == 3):
                                 if(self.players[i].Jcoins < 7):
                                     print("No puedes realizar esta opción.\n")
                                 else:
                                     for h in range(7):
-                                        self.players[i].Lose_coin()
+                                        self.players[i].lose_coin()
                                 
                                 CoupTo = self.players[i].Coup_to()
                                 if CoupTo != self.players[i].id:
@@ -357,14 +363,14 @@ class Game():
                                     # Aqui falta un metodo para que un jugador pierda una carta
                             if(action_opt == 4):
                                 if(truth1 == 1):
-                                    self.players[i].Get_coin()
-                                    self.players[i].Get_coin()
-                                    self.players[i].Get_coin()
+                                    self.players[i].get_coin()
+                                    self.players[i].get_coin()
+                                    self.players[i].get_coin()
                                 
                             if(action_opt == 5):
-                                self.players[i].Lose_coin()
-                                self.players[i].Lose_coin()
-                                self.players[i].Lose_coin()
+                                self.players[i].lose_coin()
+                                self.players[i].lose_coin()
+                                self.players[i].lose_coin()
                                 # Aqui falta un metodo para que un jugador pierda una carta
 
                             if(action_opt == 6):
@@ -378,23 +384,45 @@ class Game():
                             print("Solo se puede escoger las cuatro opciones, Intente de nuevo.")
         return
 
-    # Muestra las moneds de todos los jugadores
-    def show_coins(self, players):
-        i = 0
-        print("")
-        while i < len(self.players):
+    # Muestra las monedas de todos los jugadores
+    def show_coins(self):
+        print("\n Monedas de los Jugadores:\n")
+        for i in range(len(self.players)):
             print(" Monedas de Jugador " + str(self.players[i].id) + ": " + str(self.players[i].Jcoins))
-            i += 1
         print("")
+        return
+
+    # Muestra las cartas de los jugadores, si ya son usadas, se muestran
+    def show_cards(self):
+        print("\n Cartas de los Jugadores:\n")
+        for i in range(len(self.players)):
+            print(" Cartas de Jugador " + str(self.players[i].id) + ": ") 
+            for j in range(len(self.players[i].Jcards)):
+                if(self.players[i].Jcards[j].playable == True):
+                    print(" " + str(j + 1) + ") Carta Jugable")
+                else:
+                    if(self.players[i].Jcards[j].character == "D"):
+                        print(" " + str(j + 1) + ") Duque")
+                    elif(self.players[i].Jcards[j].character == "A"):
+                        print(" " + str(j + 1) + ") Asesino")
+                    elif(self.players[i].Jcards[j].character == "Ca"):
+                        print(" " + str(j + 1) + ") Capitán")
+                    elif(self.players[i].Jcards[j].character == "E"):
+                        print(" " + str(j + 1) + ") Embajador")
+                    else:
+                        print(" " + str(j + 1) + ") Condesa")
+            print("")
+        print("")
+
         return
 
 
 # --------------- 5)
 
 # Esta función verificará si alguien quiere hacer un desafio por tu acción
-    def challenge3P(self, playerPrincipal, otherPlayer1, otherPlayer2, playerPrincipalAction, turn, option_list, contraction):
+    def challenge3P(self, playerPrincipal, otherPlayer1, otherPlayer2, playerPrincipalAction, turn, option_list, is_contraction):
 
-        truth = 0
+        truth = False
 
         print("\n¿Algún jugador quiere desafiar su acción?\n")
         print(" 1) Jugador " + str(otherPlayer1.id) + ".")
@@ -406,35 +434,180 @@ class Game():
         while option < 1 or option > 3:
             print("\nEscoge bien tu opción")
             option = int(input("Escoge quien desafiará (1 a 3): "))
+        if is_contraction == False:
+            if(option == 1):
+                print("¡El Jugador " + str(otherPlayer1.id) + " te desafiará!")
+                truth = self.true_challenge3P(otherPlayer1, playerPrincipal, playerPrincipalAction)
+                playerAttackid = otherPlayer1.id
+            elif(option == 2):
+                print("¡El Jugador " + str(otherPlayer2.id) + " te desafiará!")
+                truth = self.true_challenge3P(otherPlayer2, playerPrincipal, playerPrincipalAction)
+                playerAttackid = otherPlayer2.id
+            else:
+                print("Nadie te ha desafiado.")
+                return True
+        else:
+            if(option == 1):
+                print("¡El Jugador " + str(otherPlayer1.id) + " te desafiará!")
+                truth = self.true_challenge_contra3P(otherPlayer1, playerPrincipal, playerPrincipalAction)
+                playerAttackid = otherPlayer1.id
+            elif(option == 2):
+                print("¡El Jugador " + str(otherPlayer2.id) + " te desafiará!")
+                truth = self.true_challenge_contra3P(otherPlayer2, playerPrincipal, playerPrincipalAction)
+                playerAttackid = otherPlayer2.id
+            else:
+                print("Nadie te ha desafiado.")
+                return True
+        print("\n")
+
+        a = ["Turno "+ str(turn) + ": El Jugador " + str(playerAttackid) + " desafia la acción '" + option_list[playerPrincipalAction-1]+"' hecha por el Jugador "+ str(playerPrincipal.id) + "."]
+        self.log.append(a)
+
+        return truth
+
+    
+    def true_challenge3P(self, playerAttack, playerDefense, playerDefenseAction):
+
+        print("\n ----- DESAFÍO -----\n\n¡¡El desafio entre el Jugador " + str(playerDefense.id) + " y el Jugador " + str(playerAttack.id) + " comienza!!")
+        truth = 0
+
+        if(playerDefenseAction == 4): #Impuesto
+
+            for i in range(len(playerDefense.Jcards)):
+                if(playerDefense.Jcards[i].character == "D"):
+                    truth += 1
+
+            if truth > 0:
+                print("El Jugador " + str(playerDefense.id) + " tiene un Duque.\nEl Jugador " + str(playerAttack.id) + " pierde el desafio.")
+                return True
+            else:
+                print("El Jugador " + str(playerDefense.id) + " no tiene un Duque.\nEl Jugador " + str(playerAttack.id) + " gana el desafio.")
+                return False
+
+        elif(playerDefenseAction == 5): #Asesinato
+
+            for i in range(len(playerDefense.Jcards)):
+                if(playerDefense.Jcards[i].character == "A"):
+                    truth += 1
+
+            if truth > 0:
+                print("El Jugador " + str(playerDefense.id) + " tiene un Asesino.\nEl Jugador " + str(playerAttack.id) + " pierde el desafio.")
+                return True
+            else:
+                print("El Jugador " + str(playerDefense.id) + " no tiene un Asesino.\nEl Jugador " + str(playerAttack.id) + " gana el desafio.")
+                return False
+
+        elif(playerDefenseAction == 6): #Cambio
+
+            for i in range(len(playerDefense.Jcards)):
+                if(playerDefense.Jcards[i].character == "E"):
+                    truth += 1
+
+            if truth > 0:
+                print("El Jugador " + str(playerDefense.id) + " tiene un Embajador.\nEl Jugador " + str(playerAttack.id) + " pierde el desafio.")
+                return True
+            else:
+                print("El Jugador " + str(playerDefense.id) + " no tiene un Embajador.\nEl Jugador " + str(playerAttack.id) + " gana el desafio.")
+                return False
+                
+        else: #Extorsión
+
+            for i in range(len(playerDefense.Jcards)):
+                if(playerDefense.Jcards[i].character == "Ca"):
+                    truth += 1
+
+            if truth > 0:
+                print("El Jugador " + str(playerDefense.id) + " tiene un Capitán.\nEl Jugador " + str(playerAttack.id) + " pierde el desafio.")
+                return True
+            else:
+                print("El Jugador " + str(playerDefense.id) + " no tiene un Capitán.\nEl Jugador " + str(playerAttack.id) + " gana el desafio.")
+                return False
+                
+        return False
+
+
+    def contraction3P(self, playerPrincipal, otherPlayer1, otherPlayer2, playerPrincipalAction, turn, option_list):
+
+        print("\nEsta acción se puede contraatacar!\n¿Alguien que desee contraatacar?")
+        print(" 1) Jugador " + str(otherPlayer1.id) + ".")
+        print(" 2) Jugador " + str(otherPlayer2.id) + ".")
+        print(" 3) Ninguno.")
+
+        option = int(input("Escoge quien desafiará (1 a 3): "))
+
+        while option < 1 or option > 3:
+            print("\nEscoge bien tu opción")
+            option = int(input("Escoge quien desafiará (1 a 3): "))
         
         if(option == 1):
-            print("Jugador " + str(otherPlayer1.id) + " te desafiará!")
+            print("¡El Jugador " + str(otherPlayer1.id) + " te contraatacará!")
             option = otherPlayer1.id
         elif(option == 2):
-            print("Jugador " + str(otherPlayer2.id) + " te desafiará!")
+            print("¡El Jugador " + str(otherPlayer2.id) + " te contraatacará!")
             option = otherPlayer2.id
         else:
-            print("Nadie te ha desafiado")
+            print("Nadie te ha contraatacado!")
             option = 0
-            print("truth = " + str(1))
-            return 1
         print("\n")
 
         if option != 0:
+            if(option == 1):
+                a = ["Turno "+ str(turn) + ": El jugador " + str(otherPlayer1.id) + " contraatacará la acción '" + option_list[playerPrincipalAction-1]+"' hecha por el jugador "+ str(playerPrincipal.id)]
+                self.log.append(a)
+            else:
+                a = ["Turno "+ str(turn) + ": El jugador " + str(otherPlayer2.id) + " contraatacará la acción '" + option_list[playerPrincipalAction-1]+"' hecha por el jugador "+ str(playerPrincipal.id)]
+                self.log.append(a)
 
-            for k in range(len(self.players)):
-                if(self.players[k].id == option):
-                    if contraction == False:
-                        truth = self.true_challenge3P(playerPrincipalAction, self.players[k], playerPrincipal)
-                    else:
-                        truth = self.true_challengeContra3P(playerPrincipalAction, self.players[k], playerPrincipal)
-        
-                    a = ["Turno "+ str(turn) + ": El jugador " + str(self.players[k].id) + " desafia la acción '" + option_list[playerPrincipalAction-1]+"' hecha por el jugador "+ str(playerPrincipal.id)]
-                    self.log.append(a)
-        
-        print("truth = " + str(truth))
-        return truth
-    
+        return option
+
+
+    def true_challenge_contra3P(self, playerAttack, playerDefense, playerDefenseAction):
+
+        print("\n ----- DESAFÍO -----\n\n¡¡El desafio entre el Jugador " + str(playerDefense.id) + " y el Jugador " + str(playerAttack.id) + " comienza!!")
+        truth = 0
+
+        if(playerDefenseAction == 2): #Ayuda Extrangera
+
+            for i in range(len(playerDefense.Jcards)):
+                if(playerDefense.Jcards[i].character == "D"):
+                    truth += 1
+
+            if truth > 0:
+                print("El Jugador " + str(playerDefense.id) + " tiene un Duque.\nEl Jugador " + str(playerAttack.id) + " pierde el desafio.")
+                return True
+            else:
+                print("El Jugador " + str(playerDefense.id) + " no tiene un Duque.\nEl Jugador " + str(playerAttack.id) + " gana el desafio.")
+                return False
+
+        elif(playerDefenseAction == 5): #Asesinato
+
+            for i in range(len(playerDefense.Jcards)):
+                if(playerDefense.Jcards[i].character == "Co"):
+                    truth += 1
+
+            if truth > 0:
+                print("El Jugador " + str(playerDefense.id) + " tiene una Condesa.\nEl Jugador " + str(playerAttack.id) + " pierde el desafio.")
+                return True
+            else:
+                print("El Jugador " + str(playerDefense.id) + " no tiene una Condesa.\nEl Jugador " + str(playerAttack.id) + " gana el desafio.")
+                return False
+                
+        else: #Extorsión
+
+            for i in range(len(playerDefense.Jcards)):
+                if(playerDefense.Jcards[i].character == "Ca" or playerDefense.Jcards[i].character == "E"):
+                    truth += 1
+
+            if truth > 0:
+                print("El Jugador " + str(playerDefense.id) + " tiene un Capitán o un Embajador.\nEl jugador " + str(playerAttack.id) + " pierde el desafio.")
+                return True
+            else:
+                print("El Jugador " + str(playerDefense.id) + " no tiene un Capitán o un Embajador.\nEl jugador que " + str(playerAttack.id) + " gana el desafio.")
+                return False
+                
+        return False
+
+
     def challenge4P(self, playerPrincipal, otherPlayer1, otherPlayer2, otherPlayer3, playerPrincipalAction, turn, option_list, contraction):
 
         truth = 0
@@ -483,104 +656,6 @@ class Game():
         return truth
     
     
-    def true_challenge3P(self, attack, playerAttack, playerDefense):
-
-        print("El desafio entre el jugador " + str(playerDefense.id) + " y jugador " + str(playerAttack.id) + " comienza!!")
-        
-        truth = 0
-        if(attack == 4): #Impuesto
-
-            for i in range(len(playerDefense.Jcards)):
-                if(playerDefense.Jcards[i].character == "D"):
-                    truth += 1
-
-            if truth > 0:
-                print("El jugador defensa tiene un Duque.\nEl jugador defensa gana el desafio.")
-                return 1
-            else:
-                print("El jugador defensa no tiene un Duque.\nEl jugador que desafió gana el desafio.")
-                return 0
-
-        elif(attack == 5): #Asesinato
-
-            for i in range(len(playerDefense.Jcards)):
-                if(playerDefense.Jcards[i].character == "A"):
-                    truth += 1
-                    
-                    
-
-            if truth > 0:
-                print("El jugador defensa tiene un Asesino.\nEl jugador defensa gana el desafio.")
-                return 1
-            else:
-                print("El jugador defensa no tiene un Asesino.\nEl jugador que desafió gana el desafio.")
-                return 0
-
-        elif(attack == 6): #Cambio
-
-            for i in range(len(playerDefense.Jcards)):
-                if(playerDefense.Jcards[i].character == "E"):
-                    truth += 1
-
-            if truth > 0:
-                print("El jugador defensa tiene un Asesino.\nEl jugador defensa gana el desafio.")
-                return 1
-            else:
-                print("El jugador defensa no tiene un Asesino.\nEl jugador que desafió gana el desafio.")
-                return 0
-                
-        else: #Extorsión
-
-            for i in range(len(playerDefense.Jcards)):
-                if(playerDefense.Jcards[i].character == "Ca"):
-                    truth += 1
-
-            if truth > 0:
-                print("El jugador defensa tiene un Capitán.\nEl jugador defensa gana el desafio.")
-                return 1
-            else:
-                print("El jugador defensa no tiene un Capitán.\nEl jugador que desafió gana el desafio.")
-                return 0
-                
-        return 0
-
-
-    def contraction3P(self, playerPrincipal, otherPlayer1, otherPlayer2, playerPrincipalAction, turn, optionlist):
-
-        print("\nEsta acción se puede contraatacar!\n¿Alguien que desee contraatacar?")
-        print(" 1) Jugador " + str(otherPlayer1.id) + ".")
-        print(" 2) Jugador " + str(otherPlayer2.id) + ".")
-        print(" 3) Ninguno.")
-
-        option = int(input("Escoge quien desafiará (1 a 3): "))
-
-        while option < 1 or option > 3:
-            print("\nEscoge bien tu opción")
-            option = int(input("Escoge quien desafiará (1 a 3): "))
-        
-        if(option == 1):
-            print("Jugador " + str(otherPlayer1.id) + " te contraatacará!")
-            option = otherPlayer1.id
-        elif(option == 2):
-            print("Jugador " + str(otherPlayer2.id) + " te contraatacará!")
-            option = otherPlayer2.id
-        else:
-            print("Nadie te ha contraatacado!")
-            option = 0
-        print("\n")
-
-        if option != 0:
-            if(option == 1):
-                a = ["Turno "+ str(turn) + ": El jugador " + str(otherPlayer1.id) + " contraatacará la acción '" + optionlist[playerPrincipalAction-1]+"' hecha por el jugador "+ str(playerPrincipal.id)]
-                self.log.append(a)
-            else:
-                a = ["Turno "+ str(turn) + ": El jugador " + str(otherPlayer2.id) + " contraatacará la acción '" + optionlist[playerPrincipalAction-1]+"' hecha por el jugador "+ str(playerPrincipal.id)]
-                self.log.append(a)
-
-        print("option = " + str(option))
-        return option
-
-    
     def contraction4P(self, playerPrincipal, otherPlayer1, otherPlayer2, otherPlayer3, playerPrincipalAction, turn, option_list):
 
         print("\nEsta acción se puede contraatacar!\n¿Alguien que desee contraatacar?")
@@ -624,53 +699,6 @@ class Game():
         return option
 
 
-    def true_challengeContra3P(self, attack, playerAttack, playerDefense):
-
-        print("El desafio entre el jugador " + str(playerDefense.id) + " y jugador " + str(playerAttack.id) + " comienza!!")
-        
-        truth = 0
-        if(attack == 2): #Ayuda Extrangera
-
-            for i in range(len(playerDefense.Jcards)):
-                if(playerDefense.Jcards[i].character == "D"):
-                    truth += 1
-
-            if truth > 0:
-                print("El jugador defensa tiene un Duque.\nEl jugador defensa gana el desafio.")
-                return 1
-            else:
-                print("El jugador defensa no tiene un Duque.\nEl jugador que desafió gana el desafio.")
-                return 0
-
-        elif(attack == 5): #Asesinato
-
-            for i in range(len(playerDefense.Jcards)):
-                if(playerDefense.Jcards[i].character == "Co"):
-                    truth += 1
-
-            if truth > 0:
-                print("El jugador defensa tiene una Condesa.\nEl jugador defensa gana el desafio.")
-                return 1
-            else:
-                print("El jugador defensa no tiene una Condesa.\nEl jugador que desafió gana el desafio.")
-                return 0
-                
-        else: #Extorsión
-
-            for i in range(len(playerDefense.Jcards)):
-                if(playerDefense.Jcards[i].character == "Ca" or playerDefense.Jcards[i].character == "E"):
-                    truth += 1
-
-            if truth > 0:
-                print("El jugador defensa tiene un Capitán o un Embajador.\nEl jugador defensa gana el desafio.")
-                return 1
-            else:
-                print("El jugador defensa no tiene un Capitán o un Embajador.\nEl jugador que desafió gana el desafio.")
-                return 0
-                
-        return 0
-
-
     def changeCards(self, player):
 
         print("\n Escoge una de las dos cartas:\n")
@@ -706,3 +734,18 @@ class Game():
         self.deck.append(cardBackup)
 
         return player
+
+
+# --------------- PRUEBA
+"""
+    
+    def clear(self):
+        return os.system('clear')
+
+""" 
+# --------------- Comienzo del código
+"""
+coup = Game()
+coup.begin()
+print("¡Muchas gracias por jugar!")
+"""

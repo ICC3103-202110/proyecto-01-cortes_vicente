@@ -15,7 +15,7 @@ class Player():
         self.__id = id   # id (int)
         self.__Jcards = Jcards # Jcards (list)
         self.__Jcoins = Jcoins #Jcoins (int)
-        self.__stillPlaying = stillPlaying # 1 si sigue jugando, 0 si pierden
+        self.__stillPlaying = stillPlaying # True si sigue jugando, False si pierden
 
 
 # -------------------- Autoreferencial -------------------- 
@@ -68,13 +68,15 @@ class Player():
         Jcoup = int(input("Jugador " + str(self.id) + " elige a que jugador dirijes la accion 'Golpe': "))
         return Jcoup
 
-    def Get_coin(self):
+
+    def get_coin(self):
         self.Jcoins += 1
         return
 
 
-    def Lose_coin(self):
+    def lose_coin(self):
         self.Jcoins -= 1
+        return
 
      #Esta función muestra tus monedas
     def show_coins(self):
@@ -105,7 +107,7 @@ class Player():
                 print(str(i + 1) + ") Condesa")
                 print(" - Acción: Ninguna.")
                 print(" - Contrataque: Puedes bloquear \'Asesinato\'.")
-            print("\n")
+            print("")
         input("\nPresiona enter para salir: ")
         return
 
@@ -193,3 +195,11 @@ class Player():
             print("Nadie te ha desafiado")
         return option
 
+
+"""
+PRUEBA
+A = Player(1,["A","D"],2)
+A.get_coin()
+A.get_coin()
+A.show_coins()
+"""
