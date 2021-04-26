@@ -42,19 +42,19 @@ class Game():
     # Modo 3 Jugadores
     def multiplayer_3P(self):
         self.give_cards()                  # 3)
-        turn = 1
+        player_turn = 1
         gameplay = 3
         while(gameplay > 1):
-            if (turn % 3) == self.players[0].id:
+            if (player_turn % 3) == self.players[0].id:
                 if self.players[0].stillPlaying == True:
-                    option_chosen = self.player_turn3P(self.players[0].id)  # 4)
-            elif (turn % 3) == self.players[1].id:
+                    self.player_turn3P(self.players[0].id)  # 4)
+            elif (player_turn % 3) == self.players[1].id:
                 if self.players[1].stillPlaying == True:
-                    option_chosen = self.player_turn3P(self.players[1].id)  # 4)
+                    self.player_turn3P(self.players[1].id)  # 4)
             else:
                 if self.players[2].stillPlaying == True:
-                    option_chosen = self.player_turn3P(self.players[2].id)  # 4)
-            turn += 1
+                    self.player_turn3P(self.players[2].id)  # 4)
+            player_turn += 1
 
             gameplay = 0
             for i in range(len(self.players)):
@@ -69,22 +69,22 @@ class Game():
     # Modo 4 Jugadores
     def multiplayer_4P(self):
         self.give_cards()                  # 3)
-        turn = 1
+        player_turn = 1
         gameplay = 4
         while(gameplay > 1):
-            if (turn % 4) == self.players[0].id:
+            if (player_turn % 4) == self.players[0].id:
                 if self.players[0].stillPlaying == True:
                     option_chosen = self.player_turn4P(self.players[0].id)  # 4)
-            elif (turn % 4) == self.players[1].id:
+            elif (player_turn % 4) == self.players[1].id:
                 if self.players[1].stillPlaying == True:
                     option_chosen = self.player_turn4P(self.players[1].id)  # 4)
-            elif (turn % 4) == self.players[2].id:
+            elif (player_turn % 4) == self.players[2].id:
                 if self.players[2].stillPlaying == True:
                     option_chosen = self.player_turn4P(self.players[2].id)  # 4)
             else:
                 if self.players[3].stillPlaying == True:
                     option_chosen = self.player_turn4P(self.players[3].id)  # 4)
-            turn += 1
+            player_turn += 1
 
             gameplay = 0
             for i in range(len(self.players)):
@@ -867,6 +867,7 @@ class Game():
     def contraction3P(self, playerPrincipal, otherPlayer1, otherPlayer2, playerPrincipalAction, turn, option_list):
 
         how_many_playing = 0
+        option = 0
 
         print("\nEsta acción se puede contraatacar!\n¿Alguien que desea contraatacar?")
 
@@ -1232,6 +1233,7 @@ class Game():
     def contraction4P(self, playerPrincipal, otherPlayer1, otherPlayer2, otherPlayer3, playerPrincipalAction, turn, option_list):
 
         how_many_playing = 0
+        option = 0
 
         print("\nEsta acción se puede contraatacar!\n¿Alguien que desea contraatacar?")
 
