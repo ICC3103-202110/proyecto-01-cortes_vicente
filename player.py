@@ -11,10 +11,11 @@ class Player():
 
 # -------------------- Atributos --------------------
 
-    def __init__(self, id, Jcards, Jcoins):
+    def __init__(self, id, Jcards, Jcoins, stillPlaying):
         self.__id = id   # id (int)
         self.__Jcards = Jcards # Jcards (list)
         self.__Jcoins = Jcoins #Jcoins (int)
+        self.__stillPlaying = stillPlaying # True si sigue jugando, False si pierden
 
 
 # -------------------- Autoreferencial -------------------- 
@@ -43,6 +44,15 @@ class Player():
     def Jcoins(self, Jcoins):
         self.__Jcoins = Jcoins
     
+    @property
+    def stillPlaying(self):
+        return self.__stillPlaying
+
+    @stillPlaying.setter
+    def stillPlaying(self, stillPlaying):
+        self.__stillPlaying = stillPlaying
+
+    
 # -------------------- Funciones --------------------    
 
     # Esta función agrega la carta y lo guarda en Jcards
@@ -50,12 +60,13 @@ class Player():
         self.__Jcards.append(card)
         return
 
-    def Get_coin(self):
+    def get_coin(self):
         self.Jcoins += 1
         return
 
-    def Lose_coin(self):
+    def lose_coin(self):
         self.Jcoins -= 1
+        return
 
      #Esta función muestra tus monedas
     def show_coins(self):
@@ -86,9 +97,7 @@ class Player():
                 print(str(i + 1) + ") Condesa")
                 print(" - Acción: Ninguna.")
                 print(" - Contrataque: Puedes bloquear \'Asesinato\'.")
-            print("\n")
-        input("\nPresiona enter para salir: ")
-        self.clear()
+            print("")
         return
 
 
@@ -109,10 +118,7 @@ class Player():
         print("\n Condesa: ")
         print("1.- Acción: Ninguna.")
         print("2.- Contrataque: Puedes bloquear \'Asesinato\'.")
-        exit = input("\nPresiona enter para salir: ")
-        self.clear()
         return
-
 
 
     # Esta función podrás escoger que acción haras
@@ -150,45 +156,51 @@ class Player():
             print("Extorsión.")
 
         return option
-  
 
-    def challenge4P(self, id1, id2, id3):
 
-        print("\n¿Algún jugador quiere desafiar su acción?\n")
-        print(" 1) Jugador " + str(id1) + ".")
-        print(" 2) Jugador " + str(id2) + ".")
-        print(" 3) Jugador " + str(id3) + ".")
-        print(" 4) Ninguno.")
+    def remove_influence(self):
 
-        option = int(input("Escoge quien desafiará (1 a 3): "))
+        not_playable = 0
+        playable = 0
 
-        if(option < 1 or option > 4):
-            print("\nEscoge bien tu opción")
-            option = int(input("Escoge quien desafiará (1 a 4): "))
+        print("\n Cartas del Jugador " + str(self.__id) + ":\n")
+        for i in range(len(self.__Jcards)):
+            if(self.__Jcards[i].playable == True):
+                print(" " + str(i + 1) + ") " + self.__Jcards[i].characterComplete() + ".")
+                playable += 1
+            else:
+                print(" " + str(i + 1) + ") " + self.__Jcards[i].characterComplete() + " [Destruido].")
+
+        if(playable == 2):
+            card_chosen = int(input("\nElige cual de tus cartas quieres eliminar (1 o 2): "))
+            while(card_chosen < 1 or card_chosen > 2):
+                print("Escoge bien tu opción")
+                card_chosen = int(input("\nElige cual de tus cartas quieres eliminar (1 o 2): "))
+            self.__Jcards[card_chosen - 1].playable = False
         
-        if(option == 1):
-            print("Jugador " + str(id1) + " te desafiará!")
-        elif(option == 2):
-            print("Jugador " + str(id2) + " te desafiará!")
-        elif(option == 3):
-            print("Jugador " + str(id3) + " te desafiará!") 
         else:
-            print("Nadie te ha desafiado")
-        return option
+            for i in range(len(self.__Jcards)):
+                if self.__Jcards[i].playable == True:
+                    self.__Jcards[i].playable = False
 
-    def clear(self):
-        return os.system('clear')
+        for i in range(len(self.__Jcards)):
+            if self.__Jcards[i].playable == False:
+                not_playable += 1
+
+        if(not_playable >= 2):
+            self.__stillPlaying = False
+            print(" Lo sentimos Jugador " + str(self.__id) + ", perdiste.")
+        else:
+            print(" Tienes solo una carta disponible.")
+
+        return
 
 
-# --------------- PRUEBA
-
-#J1 = Player(1, ["D", "Ca"], 2)
-#print(J1.Jcards)
 
 """
 PRUEBA
 A = Player(1,["A","D"],2)
-A.Get_coin()
-A.Get_coin()
+A.get_coin()
+A.get_coin()
 A.show_coins()
 """

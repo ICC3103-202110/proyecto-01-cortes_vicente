@@ -5,26 +5,28 @@ class Cards():
 
 # -------------------- Atributos --------------------
 
-    def __init__(self, character):
-        self.character = character   # character (str)
+    def __init__(self, character, playable):
+        self.character = character    # character (str)
+        self.playable = playable    # playable (bool)
 
 
 # -------------------- Autoreferencial --------------------
 
     def character(self):
         return self.character
-
-
-# -------------------- Funciones --------------------
-
-    def action(self):
-        if self.character == "A":
-            print("Tu tarjeta es Asesino")
-        #if self.character
-        return
     
+    def playable(self):
+        return self.playable
 
-# --------------- PRUEBA
+    def characterComplete(self):
+        if self.character == "D":
+            return "Duque"
+        elif self.character == "A":
+            return "Asesino"
+        elif self.character == "Ca":
+            return "Capitán"
+        elif self.character == "E":
+            return "Embajador"
+        else:
+            return "Condesa"
 
-#carta = Cards("A")
-#carta.action()
