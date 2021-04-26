@@ -1,3 +1,4 @@
+## Código creado por Juan Pablo Cortés y Gonzalo Vicente
 
 #Imprtamos librerías y archivos '.py'
 

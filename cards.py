@@ -1,3 +1,4 @@
+## Código creado por Juan Pablo Cortés y Gonzalo Vicente
 
 # --------------- Creación de clase Cards
 

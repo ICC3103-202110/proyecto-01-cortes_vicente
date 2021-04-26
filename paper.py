@@ -1,3 +1,7 @@
+## Código creado por Juan Pablo Cortés y Gonzalo Vicente
+
+# --------------- Creación de clase pAPER
+
 class Paper():
     def __init__(self, id, contra_id, log, action):
         self.id = id # Int

@@ -1,3 +1,5 @@
+## Código creado por Juan Pablo Cortés y Gonzalo Vicente
+
 #Imprtamos archivo '.py'
 
 import time as tm
