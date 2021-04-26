@@ -195,12 +195,3 @@ class Player():
 
         return
 
-
-
-"""
-PRUEBA
-A = Player(1,["A","D"],2)
-A.get_coin()
-A.get_coin()
-A.show_coins()
-"""
