@@ -182,6 +182,7 @@ class Player():
             for i in range(len(self.__Jcards)):
                 if self.__Jcards[i].playable == True:
                     self.__Jcards[i].playable = False
+<<<<<<< HEAD
 
         for i in range(len(self.__Jcards)):
             if self.__Jcards[i].playable == False:
@@ -204,3 +205,18 @@ A.get_coin()
 A.get_coin()
 A.show_coins()
 """
+=======
+
+        for i in range(len(self.__Jcards)):
+            if self.__Jcards[i].playable == False:
+                not_playable += 1
+
+        if(not_playable >= 2):
+            self.__stillPlaying = False
+            print(" Lo sentimos Jugador " + str(self.__id) + ", perdiste.")
+        else:
+            print(" Tienes solo una carta disponible.")
+
+        return
+
+>>>>>>> e7932b8b8ec2b012a057411cb2df436862bee59d

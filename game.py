@@ -5,6 +5,7 @@ import random as rd
   
 from cards import Cards
 from player import Player
+from paper import Paper
 
 
 # --------------- Creación de clase Game
@@ -26,6 +27,7 @@ class Game():
 
     # Comienzo del juego
     def begin(self):
+<<<<<<< HEAD
         print("\n------------------- COUP ----------------------\n")
         print(" ___________________________________________________")
         print("|¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶|")
@@ -41,6 +43,9 @@ class Game():
         print("\n------------------- COUP ----------------------\n")
 
 
+=======
+        print("\n   ---- COUP ----   \n")
+>>>>>>> e7932b8b8ec2b012a057411cb2df436862bee59d
         self.create_deck()                 # 1)
         choose_mode = self.choose_mode()   # 2)
         if choose_mode == 3:
@@ -224,10 +229,20 @@ class Game():
                                     print("No puedes realizar la acción Golpe o Asesinato, porque tienes menos de las monedas requeridas para hacer la acción.\n")
                                     action_opt = self.players[i].take_an_action()
 
+<<<<<<< HEAD
                             for j in range(len(option_list)):
                                 if(action_opt == j+1):
                                     a = ["Turno "+ str(i+1) + ": El jugador " + str(self.players[i].id) + " utiliza la opcion '" + option_list[j]+"'"]
                                     self.log.append(a)
+=======
+                            #for j in range(len(option_list)):
+                                #if(action_opt == j+1):
+                                    #objt = Paper(self.players[i].id, "", "", option_list[j])
+                                    #objt.Write(option_list[j],turn)
+                                    #objt.Show_writings()
+                                    #a = ["Turno "+ str(i+1) + ": El jugador " + str(self.players[i].id) + " utiliza la opcion '" + option_list[j]+"'"]
+                                    #self.log.append(a)
+>>>>>>> e7932b8b8ec2b012a057411cb2df436862bee59d
                             
                             truth1 = False
                             truth2 = False
@@ -456,6 +471,7 @@ class Game():
         return
 
     def coup_to_3P(self, player, otherPlayer1, otherPlayer2):
+<<<<<<< HEAD
 
         print("\n ----- Eliminación de influencia -----\n")
         how_many_playing = 0
@@ -583,6 +599,135 @@ class Game():
             if otherPlayer3.stillPlaying == True:
                 otherPlayer1.remove_influence()
 
+=======
+
+        print("\n ----- Eliminación de influencia -----\n")
+        how_many_playing = 0
+
+        if otherPlayer1.stillPlaying == True:
+            print(" 1) Jugador " + str(otherPlayer1.id) + ".")
+            how_many_playing += 1
+        if otherPlayer2.stillPlaying == True:
+            print(" 2) Jugador " + str(otherPlayer2.id) + ".")
+            how_many_playing += 1
+
+        if how_many_playing >= 2:
+            Jcoup = int(input("\nJugador " + str(player.id) + ", elige a cuál Jugador quieres remover su infuencia (1 o 2): "))
+            while(Jcoup < 1 or Jcoup > 2):
+                print("Escoge bien tu opción")
+                Jcoup = int(input("\nJugador " + str(player.id) + ", elige a cuál Jugador quieres remover su infuencia (1 o 2): "))
+        
+            if Jcoup == 1:
+                otherPlayer1.remove_influence()
+            else:
+                otherPlayer2.remove_influence()
+        
+        else:
+            if otherPlayer1.stillPlaying == True:
+                otherPlayer1.remove_influence()
+            if otherPlayer2.stillPlaying == True:
+                otherPlayer2.remove_influence()
+
+        return
+
+    def extorsion_3P(self, player, otherPlayer1, otherPlayer2):
+    
+        print("\n ----- Extorsión -----\n")
+        how_many_playing = 0
+
+        if otherPlayer1.stillPlaying == True:
+            print(" 1) Jugador " + str(otherPlayer1.id) + ".")
+            how_many_playing += 1
+        if otherPlayer2.stillPlaying == True:
+            print(" 2) Jugador " + str(otherPlayer2.id) + ".")
+            how_many_playing += 1
+
+        if how_many_playing >= 2:
+            extor = int(input("\nJugador " + str(player.id) + ", elige a cuál Jugador quieres remover su infuencia (1 o 2): "))
+            while(extor < 1 or extor > 2):
+                print("Escoge bien tu opción")
+                extor = int(input("\nJugador " + str(player.id) + ", elige a cuál Jugador quieres remover su infuencia (1 o 2): "))
+        
+            if extor == 1:
+                otherPlayer1.lose_coin()
+                otherPlayer1.lose_coin()
+                print("\nEl Jugador " + str(player.id) + " extorsionó al Jugador " + str(otherPlayer1.id) + ".")
+            else:
+                otherPlayer2.lose_coin()
+                otherPlayer2.lose_coin()
+                print("\nEl Jugador " + str(player.id) + " extorsionó al Jugador " + str(otherPlayer2.id) + ".")
+            
+        else:
+            if otherPlayer1.stillPlaying == True:
+                otherPlayer1.lose_coin()
+                otherPlayer1.lose_coin()
+                print("\nEl Jugador " + str(player.id) + " extorsionó al Jugador " + str(otherPlayer1.id) + ".")
+            if otherPlayer2.stillPlaying == True:
+                otherPlayer2.lose_coin()
+                otherPlayer2.lose_coin()
+                print("\nEl Jugador " + str(player.id) + " extorsionó al Jugador " + str(otherPlayer2.id) + ".")
+        
+        return
+
+    def coup_to_4P(self, player, otherPlayer1, otherPlayer2, otherPlayer3):
+
+        print("\n ----- Eliminación de influencia -----\n")
+        how_many_playing = 0
+
+        if otherPlayer1.stillPlaying == True:
+            print(" " + str(how_many_playing + 1) + ") Jugador " + str(otherPlayer1.id) + ".")
+            how_many_playing += 1
+        if otherPlayer2.stillPlaying == True:
+            print(" " + str(how_many_playing + 1) + ") Jugador " + str(otherPlayer2.id) + ".")
+            how_many_playing += 1
+        if otherPlayer3.stillPlaying == True:
+            print(" " + str(how_many_playing + 1) + ") Jugador " + str(otherPlayer3.id) + ".")
+            how_many_playing += 1
+
+        if how_many_playing >= 2:
+            Jcoup = int(input("\nJugador " + str(player.id) + ", elige a cuál Jugador quieres remover su infuencia (1 o " + str(how_many_playing) + "): "))
+            while(Jcoup < 1 or Jcoup > how_many_playing):
+                print("Escoge bien tu opción")
+                Jcoup = int(input("\nJugador " + str(player.id) + ", elige a cuál Jugador quieres remover su infuencia (1 o " + str(how_many_playing) + "): "))
+        
+            if how_many_playing == 3:
+                if Jcoup == 1:
+                    otherPlayer1.remove_influence()
+                elif Jcoup == 2:
+                    otherPlayer2.remove_influence()
+                else:
+                    otherPlayer2.remove_influence()
+            
+            else:
+                if otherPlayer1.stillPlaying == False:
+                    if Jcoup == 1:
+                        otherPlayer2.remove_influence()
+                    else:
+                        otherPlayer3.remove_influence()
+
+                if otherPlayer2.stillPlaying == False:
+                    if Jcoup == 1:
+                        otherPlayer1.remove_influence()
+                    else:
+                        otherPlayer3.remove_influence()
+                
+                if otherPlayer3.stillPlaying == False:
+                    if Jcoup == 1:
+                        otherPlayer1.remove_influence()
+                    else:
+                        otherPlayer2.remove_influence()
+
+        else:
+            if otherPlayer1.stillPlaying == True:
+                otherPlayer1.remove_influence()
+
+            if otherPlayer2.stillPlaying == True:
+                otherPlayer2.remove_influence()
+
+            if otherPlayer3.stillPlaying == True:
+                otherPlayer1.remove_influence()
+
+>>>>>>> e7932b8b8ec2b012a057411cb2df436862bee59d
         return
 
     def extorsion_4P(self, player, otherPlayer1, otherPlayer2, otherPlayer3):
@@ -825,6 +970,13 @@ class Game():
                 print("El Jugador " + str(playerDefense.id) + " no tiene un Asesino.\nEl Jugador " + str(playerAttack.id) + " gana el desafio.")
                 playerDefense.remove_influence()
                 return False
+<<<<<<< HEAD
+
+        elif(playerDefenseAction == 6): #Cambio
+
+            for i in range(len(playerDefense.Jcards)):
+                if(playerDefense.Jcards[i].character == "E" and playerDefense.Jcards[i].playable == True):
+=======
 
         elif(playerDefenseAction == 6): #Cambio
 
@@ -847,10 +999,31 @@ class Game():
 
             for i in range(len(playerDefense.Jcards)):
                 if(playerDefense.Jcards[i].character == "Ca" and playerDefense.Jcards[i].playable == True):
+>>>>>>> e7932b8b8ec2b012a057411cb2df436862bee59d
                     truth += 1
                     character = playerDefense.Jcards[i].character
 
             if truth > 0:
+<<<<<<< HEAD
+                print("El Jugador " + str(playerDefense.id) + " tiene un Embajador.\nEl Jugador " + str(playerAttack.id) + " pierde el desafio.")
+                self.change_card(playerDefense, "E")
+                playerAttack.remove_influence()
+                return True
+            else:
+                print("El Jugador " + str(playerDefense.id) + " no tiene un Embajador.\nEl Jugador " + str(playerAttack.id) + " gana el desafio.")
+                playerDefense.remove_influence()
+                return False
+                
+        else: #Extorsión
+
+            for i in range(len(playerDefense.Jcards)):
+                if(playerDefense.Jcards[i].character == "Ca" and playerDefense.Jcards[i].playable == True):
+                    truth += 1
+                    character = playerDefense.Jcards[i].character
+
+            if truth > 0:
+=======
+>>>>>>> e7932b8b8ec2b012a057411cb2df436862bee59d
                 print("El Jugador " + str(playerDefense.id) + " tiene un Capitán.\nEl Jugador " + str(playerAttack.id) + " pierde el desafio.")
                 self.change_card(playerDefense, "Ca")
                 playerAttack.remove_influence()
@@ -861,6 +1034,7 @@ class Game():
                 return False
                 
         return False
+<<<<<<< HEAD
 
 
     def change_card(self, player, character):
@@ -943,6 +1117,90 @@ class Game():
                     option = otherPlayer2.id
                 
                 else:
+=======
+
+
+    def change_card(self, player, character):
+        for i in range(len(player.Jcards)):
+            if(player.Jcards[i].character == character):
+                print("El Jugador " + str(player.id) + " tendrá que cambiar su carta por una del mazo.")
+                cardBackup = player.Jcards.pop(i)
+                player.get_cards(self.deck.pop(0))
+                self.deck.append(cardBackup)
+                return
+        return
+    
+
+    def contraction3P(self, playerPrincipal, otherPlayer1, otherPlayer2, playerPrincipalAction, turn, option_list):
+
+        how_many_playing = 0
+
+        print("\nEsta acción se puede contraatacar!\n¿Alguien que desea contraatacar?")
+
+        if otherPlayer1.stillPlaying == True:
+            print(" 1) Jugador " + str(otherPlayer1.id) + ".")
+            how_many_playing += 1
+        if otherPlayer2.stillPlaying == True: 
+            print(" 2) Jugador " + str(otherPlayer2.id) + ".")
+            how_many_playing += 1
+        print(" 3) Ninguno.\n")
+
+        if how_many_playing >= 2:
+            option = int(input("Escoge quien contraatacará (1 a 3): "))
+            while option < 1 or option > 3:
+                print("\nEscoge bien tu opción")
+                option = int(input("Escoge quien contraatacará (1 a 3): "))
+            
+            if(option == 1):
+                print("¡El Jugador " + str(otherPlayer1.id) + " te contraatacará!")
+                option = otherPlayer1.id
+            elif(option == 2):
+                print("¡El Jugador " + str(otherPlayer2.id) + " te contraatacará!")
+                option = otherPlayer2.id
+            else:
+                print("Nadie te ha contraatacado!")
+                option = 0
+            print("\n")
+
+            if option != 0:
+                if(option == 1):
+                    a = ["Turno "+ str(turn) + ": El jugador " + str(otherPlayer1.id) + " contraatacará la acción '" + option_list[playerPrincipalAction-1]+"' hecha por el jugador "+ str(playerPrincipal.id)]
+                    self.log.append(a)
+                else:
+                    a = ["Turno "+ str(turn) + ": El jugador " + str(otherPlayer2.id) + " contraatacará la acción '" + option_list[playerPrincipalAction-1]+"' hecha por el jugador "+ str(playerPrincipal.id)]
+                    self.log.append(a)
+
+        else:
+            if otherPlayer1.stillPlaying == True:
+
+                option = int(input("Jugador " + str(otherPlayer1.id) + ", ¿Quieres contraatacar a Jugador " + str(playerPrincipal.id) + "? (1 para si, 0 para no)"))
+                while option < 0 or option > 1:
+                    print("\nEscoge bien tu opción")
+                    option = int(input("Jugador " + str(otherPlayer1.id) + ", ¿Quieres desafiar a Jugador " + str(playerPrincipal.id) + "? (1 para si, 0 para no)"))
+                
+                if(option == 1):
+                    print("¡El Jugador " + str(otherPlayer1.id) + " te contraatacará!")
+                    option = otherPlayer1.id
+                
+                else:
+                    print("No has desafiado.")
+                    option = 0
+
+
+
+            if otherPlayer2.stillPlaying == True:
+
+                option = int(input("Jugador " + str(otherPlayer2.id) + ", ¿Quieres contraatacar a Jugador " + str(playerPrincipal.id) + "? (1 para si, 0 para no)"))
+                while option < 0 or option > 1:
+                    print("\nEscoge bien tu opción")
+                    option = int(input("Jugador " + str(otherPlayer2.id) + ", ¿Quieres desafiar a Jugador " + str(playerPrincipal.id) + "? (1 para si, 0 para no)"))
+                
+                if(option == 1):
+                    print("¡El Jugador " + str(otherPlayer2.id) + " te contraatacará!")
+                    option = otherPlayer2.id
+                
+                else:
+>>>>>>> e7932b8b8ec2b012a057411cb2df436862bee59d
                     print("No has desafiado.")
                     option = 0
 
@@ -1052,6 +1310,7 @@ class Game():
                     else:
                         print("Nadie te ha desafiado.")
                         return True
+<<<<<<< HEAD
                 else:
                     if(option == 1):
                         print("¡El Jugador " + str(otherPlayer1.id) + " te desafiará!")
@@ -1196,6 +1455,152 @@ class Game():
 
                 else:
                     if(option == 1):
+=======
+                else:
+                    if(option == 1):
+                        print("¡El Jugador " + str(otherPlayer1.id) + " te desafiará!")
+                        truth = self.true_challenge_contra(otherPlayer1, playerPrincipal, playerPrincipalAction)
+                        playerAttackid = otherPlayer1.id
+                    elif(option == 2):
+                        print("¡El Jugador " + str(otherPlayer2.id) + " te desafiará!")
+                        truth = self.true_challenge_contra(otherPlayer2, playerPrincipal, playerPrincipalAction)
+                        playerAttackid = otherPlayer2.id
+                    elif(option == 3):
+                        print("¡El Jugador " + str(otherPlayer3.id) + " te desafiará!")
+                        truth = self.true_challenge_contra(otherPlayer3, playerPrincipal, playerPrincipalAction)
+                        playerAttackid = otherPlayer3.id
+                    else:
+                        print("Nadie te ha desafiado.")
+                        return True
+
+            if how_many_playing == 2:
+                if is_contraction == False:
+                    if otherPlayer1.stillPlaying == False:
+                        if(option == 1):
+                            print("¡El Jugador " + str(otherPlayer2.id) + " te desafiará!")
+                            truth = self.true_challenge(otherPlayer2, playerPrincipal, playerPrincipalAction)
+                            playerAttackid = otherPlayer2.id
+                        elif(option == 2):
+                            print("¡El Jugador " + str(otherPlayer3.id) + " te desafiará!")
+                            truth = self.true_challenge(otherPlayer3, playerPrincipal, playerPrincipalAction)
+                            playerAttackid = otherPlayer3.id
+                        else:
+                            print("Nadie te ha desafiado.")
+                            return True
+                    
+                    if otherPlayer2.stillPlaying == False:
+                        if(option == 1):
+                            print("¡El Jugador " + str(otherPlayer1.id) + " te desafiará!")
+                            truth = self.true_challenge(otherPlayer1, playerPrincipal, playerPrincipalAction)
+                            playerAttackid = otherPlayer1.id
+                        elif(option == 2):
+                            print("¡El Jugador " + str(otherPlayer3.id) + " te desafiará!")
+                            truth = self.true_challenge(otherPlayer3, playerPrincipal, playerPrincipalAction)
+                            playerAttackid = otherPlayer3.id
+                        else:
+                            print("Nadie te ha desafiado.")
+                            return True
+                    
+                    if otherPlayer3.stillPlaying == False:
+                        if(option == 1):
+                            print("¡El Jugador " + str(otherPlayer1.id) + " te desafiará!")
+                            truth = self.true_challenge(otherPlayer1, playerPrincipal, playerPrincipalAction)
+                            playerAttackid = otherPlayer1.id
+                        elif(option == 2):
+                            print("¡El Jugador " + str(otherPlayer2.id) + " te desafiará!")
+                            truth = self.true_challenge(otherPlayer2, playerPrincipal, playerPrincipalAction)
+                            playerAttackid = otherPlayer2.id
+                        else:
+                            print("Nadie te ha desafiado.")
+                            return True
+                        
+                else:
+                    if otherPlayer1.stillPlaying == False:
+                        if(option == 1):
+                            print("¡El Jugador " + str(otherPlayer2.id) + " te desafiará!")
+                            truth = self.true_challenge_contra(otherPlayer2, playerPrincipal, playerPrincipalAction)
+                            playerAttackid = otherPlayer2.id
+                        elif(option == 2):
+                            print("¡El Jugador " + str(otherPlayer3.id) + " te desafiará!")
+                            truth = self.true_challenge_contra(otherPlayer3, playerPrincipal, playerPrincipalAction)
+                            playerAttackid = otherPlayer3.id
+                        else:
+                            print("Nadie te ha desafiado.")
+                            return True
+                    
+                    if otherPlayer2.stillPlaying == False:
+                        if(option == 1):
+                            print("¡El Jugador " + str(otherPlayer1.id) + " te desafiará!")
+                            truth = self.true_challenge_contra(otherPlayer1, playerPrincipal, playerPrincipalAction)
+                            playerAttackid = otherPlayer1.id
+                        elif(option == 2):
+                            print("¡El Jugador " + str(otherPlayer3.id) + " te desafiará!")
+                            truth = self.true_challenge_contra(otherPlayer3, playerPrincipal, playerPrincipalAction)
+                            playerAttackid = otherPlayer3.id
+                        else:
+                            print("Nadie te ha desafiado.")
+                            return True
+                    
+                    if otherPlayer3.stillPlaying == False:
+                        if(option == 1):
+                            print("¡El Jugador " + str(otherPlayer1.id) + " te desafiará!")
+                            truth = self.true_challenge_contra(otherPlayer1, playerPrincipal, playerPrincipalAction)
+                            playerAttackid = otherPlayer1.id
+                        elif(option == 2):
+                            print("¡El Jugador " + str(otherPlayer2.id) + " te desafiará!")
+                            truth = self.true_challenge_contra(otherPlayer2, playerPrincipal, playerPrincipalAction)
+                            playerAttackid = otherPlayer2.id
+                        else:
+                            print("Nadie te ha desafiado.")
+                            return True
+
+        else:
+            if otherPlayer1.stillPlaying == True:
+                option = int(input("Jugador " + str(otherPlayer1.id) + ", ¿Quieres desafiar a Jugador " + str(playerPrincipal.id) + "? (1 para si, 0 para no)"))
+                while option < 0 or option > 1:
+                    print("\nEscoge bien tu opción")
+                    option = int(input("Jugador " + str(otherPlayer1.id) + ", ¿Quieres desafiar a Jugador " + str(playerPrincipal.id) + "? (1 para si, 0 para no)"))
+
+                if is_contraction == False:
+                    if(option == 1):
+                        print("¡El Jugador " + str(otherPlayer1.id) + " te desafiará!")
+                        truth = self.true_challenge(otherPlayer1, playerPrincipal, playerPrincipalAction)
+                        playerAttackid = otherPlayer1.id
+                
+                    else:
+                        print("No has desafiado.")
+                        return True
+
+                else:
+                    if(option == 1):
+                        print("¡El Jugador " + str(otherPlayer1.id) + " te desafiará!")
+                        truth = self.true_challenge_contra(otherPlayer1, playerPrincipal, playerPrincipalAction)
+                        playerAttackid = otherPlayer1.id
+                
+                    else:
+                        print("No has desafiado.")
+                        return True
+            
+            if otherPlayer2.stillPlaying == True:
+                option = int(input("Jugador " + str(otherPlayer2.id) + ", ¿Quieres desafiar a Jugador " + str(playerPrincipal.id) + "? (1 para si, 0 para no)"))
+                while option < 0 or option > 1:
+                    print("\nEscoge bien tu opción")
+                    option = int(input("Jugador " + str(otherPlayer2.id) + ", ¿Quieres desafiar a Jugador " + str(playerPrincipal.id) + "? (1 para si, 0 para no)"))
+                
+                if is_contraction == False:
+
+                    if(option == 1):
+                        print("¡El Jugador " + str(otherPlayer2.id) + " te desafiará!")
+                        truth = self.true_challenge(otherPlayer2, playerPrincipal, playerPrincipalAction)
+                        playerAttackid = otherPlayer2.id
+                
+                    else:
+                        print("No has desafiado.")
+                        return True
+
+                else:
+                    if(option == 1):
+>>>>>>> e7932b8b8ec2b012a057411cb2df436862bee59d
                         print("¡El Jugador " + str(otherPlayer2.id) + " te desafiará!")
                         truth = self.true_challenge_contra(otherPlayer2, playerPrincipal, playerPrincipalAction)
                         playerAttackid = otherPlayer2.id
