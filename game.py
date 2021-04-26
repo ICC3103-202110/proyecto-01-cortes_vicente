@@ -2,8 +2,6 @@
 #Imprtamos librerías y archivos '.py'
 
 import random as rd
-import time as tm
-import os
   
 from cards import Cards
 from player import Player
@@ -45,11 +43,14 @@ class Game():
         gameplay = 3
         while(gameplay > 1):
             if (turn % 3) == self.players[0].id:
-                option_chosen = self.player_turn3P(self.players[0].id)  # 4)
+                if self.players[0].stillPlaying == True:
+                    option_chosen = self.player_turn3P(self.players[0].id)  # 4)
             elif (turn % 3) == self.players[1].id:
-                option_chosen = self.player_turn3P(self.players[1].id)  # 4)
+                if self.players[1].stillPlaying == True:
+                    option_chosen = self.player_turn3P(self.players[1].id)  # 4)
             else:
-                option_chosen = self.player_turn3P(self.players[2].id)  # 4)
+                if self.players[2].stillPlaying == True:
+                    option_chosen = self.player_turn3P(self.players[2].id)  # 4)
             turn += 1
 
             gameplay = 0
@@ -65,13 +66,17 @@ class Game():
         gameplay = 4
         while(gameplay > 1):
             if (turn % 4) == self.players[0].id:
-                option_chosen = self.player_turn4P(self.players[0].id)  # 4)
+                if self.players[0].stillPlaying == True:
+                    option_chosen = self.player_turn4P(self.players[0].id)  # 4)
             elif (turn % 4) == self.players[1].id:
-                option_chosen = self.player_turn4P(self.players[1].id)  # 4)
+                if self.players[1].stillPlaying == True:
+                    option_chosen = self.player_turn4P(self.players[1].id)  # 4)
             elif (turn % 4) == self.players[2].id:
-                option_chosen = self.player_turn4P(self.players[2].id)  # 4)
+                if self.players[2].stillPlaying == True:
+                    option_chosen = self.player_turn4P(self.players[2].id)  # 4)
             else:
-                option_chosen = self.player_turn4P(self.players[3].id)  # 4)
+                if self.players[3].stillPlaying == True:
+                    option_chosen = self.player_turn4P(self.players[3].id)  # 4)
             turn += 1
 
             gameplay = 0
@@ -171,9 +176,11 @@ class Game():
 
                         if(opt == 1):
                             self.players[i].see_cards()
+                            input("\nPresiona enter para salir: ")
 
                         elif(opt == 2):
                             self.players[i].see_actions()
+                            input("\nPresiona enter para salir: ")
 
                         elif(opt == 3):
                             for k in range(len(self.log)):
@@ -184,6 +191,7 @@ class Game():
                             option_list = ["Ingresos", "Ayuda Extranjera", "Golpe", "Impuesto", "Asesinato", "Cambio","Extorsión"]
 
                             if(self.players[i].Jcoins >= 10):
+                                print("Tienes 10 monedas o más, tienes que hacer un Golpe.\n")
                                 action_opt = 3
                             else:
                                 action_opt = self.players[i].take_an_action()  
@@ -228,23 +236,15 @@ class Game():
                                 if(self.players[i].Jcoins < 7):
                                     print("No puedes realizar esta opción.\n")
                                 else:
-                                    for h in range(7):
-                                        self.players[i].lose_coin()
-                                
-                                CoupTo = self.players[i].Coup_to()
-                                if CoupTo != self.players[i].id:
-                                    #print("Jugador" + self.players[CoupTo].id + " ")
-                                    self.players[CoupTo].remove_influence()
-            
-                                
-                                    # Aqui falta un metodo para que un jugador pierda una carta
+                                    for j in range(7):
+                                        self.players[i].lose_coin
+                                    self.coup_to_3P(self.players[i], self.players[(i + 1) % len(self.players)], self.players[(i + 2) % len(self.players)])
 
                             elif(action_opt == 4): #LISTO
                                 if(truth1 == True):
                                     self.players[i].get_coin()
                                     self.players[i].get_coin()
                                     self.players[i].get_coin()
-                            
                                 
                             elif(action_opt == 5):
                                 if(truth1 == True):
@@ -252,18 +252,17 @@ class Game():
                                     self.players[i].lose_coin()
                                     self.players[i].lose_coin()
                                     if(truth2 == False):
-                                        print("Aqui falta un metodo para que un jugador pierda una carta.")
-
+                                        self.coup_to_3P(self.players[i], self.players[(i + 1) % len(self.players)], self.players[(i + 2) % len(self.players)])
 
                             elif(action_opt == 6): #LISTO
                                 if(truth1 == True):
                                     self.change_cards(self.players[i])
 
-
-                            elif(action_opt == 7):
+                            elif(action_opt == 7): #LISTO
                                 if(truth1 == True and truth2 == False):
                                     self.players[i].get_coin()
                                     self.players[i].get_coin()
+                                    self.extorsion_3P(self.players[i], self.players[(i + 1) % len(self.players)], self.players[(i + 2) % len(self.players)])
                                 
                         else:
                             print("Solo se puede escoger las cuatro opciones, Intente de nuevo.")
@@ -418,6 +417,43 @@ class Game():
 
         return
 
+    def coup_to_3P(self, player, otherPlayer1, otherPlayer2):
+
+        print(" 1) Jugador " + str(otherPlayer1.id) + ".")
+        print(" 2) Jugador " + str(otherPlayer2.id) + ".")
+
+        Jcoup = int(input("\nJugador " + str(player.id) + ", elige a cuál Jugador quieres remover su infuencia (1 o 2): "))
+        while(Jcoup < 1 or Jcoup > 2):
+            print("Escoge bien tu opción")
+            Jcoup = int(input("\nJugador " + str(player.id) + ", elige a cuál Jugador quieres remover su infuencia (1 o 2): "))
+        
+        if Jcoup == 1:
+            otherPlayer1.remove_influence()
+        else:
+            otherPlayer2.remove_influence()
+
+        return
+
+    def extorsion_3P(self, player, otherPlayer1, otherPlayer2):
+
+        print(" 1) Jugador " + str(otherPlayer1.id) + ".")
+        print(" 2) Jugador " + str(otherPlayer2.id) + ".")
+
+        Jcoup = int(input("\nJugador " + str(player.id) + ", elige a cuál Jugador quieres extorsionar (1 o 2): "))
+        while(Jcoup < 1 or Jcoup > 2):
+            print("Escoge bien tu opción")
+            Jcoup = int(input("\nJugador " + str(player.id) + ", elige a cuál Jugador quieres remover su infuencia (1 o 2): "))
+        
+        if Jcoup == 1:
+            otherPlayer1.lose_coin()
+            otherPlayer1.lose_coin()
+            print("\nEl Jugador " + str(player.id) + " extorsionó al Jugador " + str(otherPlayer1.id) + ".")
+        else:
+            otherPlayer2.lose_coin()
+            otherPlayer2.lose_coin()
+            print("\nEl Jugador " + str(player.id) + " extorsionó al Jugador " + str(otherPlayer1.id) + ".")
+        
+        return
 
 # --------------- 5)
 
@@ -479,12 +515,16 @@ class Game():
             for i in range(len(playerDefense.Jcards)):
                 if(playerDefense.Jcards[i].character == "D"):
                     truth += 1
+                    character = playerDefense.Jcards[i].character
 
             if truth > 0:
                 print("El Jugador " + str(playerDefense.id) + " tiene un Duque.\nEl Jugador " + str(playerAttack.id) + " pierde el desafio.")
+                self.change_card(playerDefense, "D")
+                playerAttack.remove_influence()
                 return True
             else:
                 print("El Jugador " + str(playerDefense.id) + " no tiene un Duque.\nEl Jugador " + str(playerAttack.id) + " gana el desafio.")
+                playerDefense.remove_influence()
                 return False
 
         elif(playerDefenseAction == 5): #Asesinato
@@ -492,12 +532,16 @@ class Game():
             for i in range(len(playerDefense.Jcards)):
                 if(playerDefense.Jcards[i].character == "A"):
                     truth += 1
+                    character = playerDefense.Jcards[i].character
 
             if truth > 0:
                 print("El Jugador " + str(playerDefense.id) + " tiene un Asesino.\nEl Jugador " + str(playerAttack.id) + " pierde el desafio.")
+                self.change_card(playerDefense, "A")
+                playerAttack.remove_influence()
                 return True
             else:
                 print("El Jugador " + str(playerDefense.id) + " no tiene un Asesino.\nEl Jugador " + str(playerAttack.id) + " gana el desafio.")
+                playerDefense.remove_influence()
                 return False
 
         elif(playerDefenseAction == 6): #Cambio
@@ -505,12 +549,16 @@ class Game():
             for i in range(len(playerDefense.Jcards)):
                 if(playerDefense.Jcards[i].character == "E"):
                     truth += 1
+                    character = playerDefense.Jcards[i].character
 
             if truth > 0:
                 print("El Jugador " + str(playerDefense.id) + " tiene un Embajador.\nEl Jugador " + str(playerAttack.id) + " pierde el desafio.")
+                self.change_card(playerDefense, "E")
+                playerAttack.remove_influence()
                 return True
             else:
                 print("El Jugador " + str(playerDefense.id) + " no tiene un Embajador.\nEl Jugador " + str(playerAttack.id) + " gana el desafio.")
+                playerDefense.remove_influence()
                 return False
                 
         else: #Extorsión
@@ -518,16 +566,30 @@ class Game():
             for i in range(len(playerDefense.Jcards)):
                 if(playerDefense.Jcards[i].character == "Ca"):
                     truth += 1
+                    character = playerDefense.Jcards[i].character
 
             if truth > 0:
                 print("El Jugador " + str(playerDefense.id) + " tiene un Capitán.\nEl Jugador " + str(playerAttack.id) + " pierde el desafio.")
+                self.change_card(playerDefense, "Ca")
+                playerAttack.remove_influence()
                 return True
             else:
                 print("El Jugador " + str(playerDefense.id) + " no tiene un Capitán.\nEl Jugador " + str(playerAttack.id) + " gana el desafio.")
+                playerDefense.remove_influence()
                 return False
                 
         return False
 
+    def change_card(self, player, character):
+        for i in range(len(player.Jcards)):
+            if(player.Jcards[i].character == character):
+                print("El Jugador " + str(player.id) + " tendrá que cambiar su carta por una del mazo.")
+                cardBackup = player.Jcards.pop(i)
+                player.get_cards(self.deck.pop(0))
+                self.deck.append(cardBackup)
+                return
+        return
+    
 
     def contraction3P(self, playerPrincipal, otherPlayer1, otherPlayer2, playerPrincipalAction, turn, option_list):
 
@@ -610,8 +672,6 @@ class Game():
                 return False
                 
         return False
-
-
 
 
     def challenge4P(self, playerPrincipal, otherPlayer1, otherPlayer2, otherPlayer3, playerPrincipalAction, turn, option_list, contraction):
@@ -740,14 +800,15 @@ class Game():
         player.see_cards()
 
         cardReplace = int(input("¿Con cual quieres reemplazar? (1 o 2): "))
-        while cardSelected < 1 or cardSelected > 2:
+        while cardReplace < 1 or cardReplace > 2:
             print("\nEscoge bien tu opción")
             cardReplace = int(input("¿Con cual quieres reemplazar? (1 o 2): "))
 
         print("\n Reemplazaste la carta " + player.Jcards[cardReplace - 1].characterComplete() + " por la carta " + self.deck[cardSelected - 1].characterComplete())
         cardBackup = player.Jcards[cardReplace - 1]
         player.Jcards[cardReplace - 1] = self.deck[cardSelected - 1]
-        self.deck.append(cardBackup)
+        self.deck[cardSelected - 1] = cardBackup
+        self.suffle_deck()
 
         return
 
